@@ -1,4 +1,4 @@
-#ifndef CONVERTER_H
+﻿#ifndef CONVERTER_H
 #define CONVERTER_H
 
 #include <QObject>
@@ -15,8 +15,13 @@ private:
 public:
     explicit Converter(QObject *parent = 0);
 
-    Converter();
-    ~Converter() {
+    Converter(QObject *parent) : QObject(parent)
+    {
+        filefrom, fileto, tname = "";
+    }
+;
+    ~Converter()
+    {
         delete &filefrom;
         delete &fileto;
         delete &tname;
@@ -26,7 +31,7 @@ public:
 signals:
 
 private slots:
-    //void convertDbToCsv(QString, QString, QString);
+    void convertDbToCsv(QString, QString, QString);
     //void convertCsvToDb(QString, QString, QString);
 };
 

@@ -20,7 +20,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-        converter.cpp \
         dbtocsv.cpp \
 
 HEADERS += mainwindow.h \
