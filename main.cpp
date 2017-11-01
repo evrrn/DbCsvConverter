@@ -1,6 +1,6 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <QApplication>
-#include "dbtocsv.h"
+#include "converter.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    convertDbToCsv("testDB", "T2", "testDBT2");
+    //convertDbToCsv("testDB", "T2", "testDBT2");
 
     return a.exec();
 }

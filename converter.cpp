@@ -1,12 +1,12 @@
-#include <QtSql>
+﻿#include <QtSql>
 #include <QFile>
-
+#include "converter.h"
 
 QByteArray getElementForCsv(QString elem) {
     return "\"" + elem.toUtf8() + "\"";
 }
 
-void convertDbToCsv(QString dbname, QString tname, QString csvname) {
+void Converter::convertDbToCsv(QString dbname, QString tname, QString csvname) {
 
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
     sdb.setDatabaseName("../DbCsvConverter/db/" + dbname);

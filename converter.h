@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QWidget>
-//#include <QDir>
 
 class Converter : public QObject
 {
@@ -13,13 +12,13 @@ private:
     QString filefrom, fileto, tname;
 
 public:
-    explicit Converter(QObject *parent = 0);
-
-    Converter(QObject *parent) : QObject(parent)
+    Converter()
     {
-        filefrom, fileto, tname = "";
+        filefrom = "";
+        fileto = "";
+        tname = "";
     }
-;
+
     ~Converter()
     {
         delete &filefrom;
@@ -27,11 +26,10 @@ public:
         delete &tname;
     }
 
-
 signals:
 
 private slots:
-    void convertDbToCsv(QString, QString, QString);
+    void convertDbToCsv(QString dbname, QString tname, QString csvname);
     //void convertCsvToDb(QString, QString, QString);
 };
 
