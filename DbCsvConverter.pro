@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,10 +20,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    converter.cpp
+        converter.cpp \
+        dbtocsv.cpp \
 
-HEADERS  += mainwindow.h \
-    converter.h
+HEADERS += mainwindow.h \
+        converter.h \
+        dbtocsv.h \
 
 FORMS    += mainwindow.ui
 
