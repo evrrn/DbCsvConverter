@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    csvtodb.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    csvtodb.h
 
 FORMS    += mainwindow.ui

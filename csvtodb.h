@@ -1,9 +1,9 @@
 #ifndef CSVTODB
 #define CSVTODB
-#include <iostream>
-#include <fstream>
+//#include <iostream>
+//#include <fstream>
 
-void converter(ifstream input);
+void converter();
 
 #endif // CSVTODB
 
