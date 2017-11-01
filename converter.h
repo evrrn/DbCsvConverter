@@ -9,21 +9,36 @@ class Converter : public QObject
     Q_OBJECT
 
 private:
-    QString filefrom, fileto, tname;
+    QString namefrom, nameto, tname;
 
 public:
     Converter()
     {
-        filefrom = "";
-        fileto = "";
+        namefrom = "";
+        nameto = "";
         tname = "";
     }
 
     ~Converter()
     {
-        delete &filefrom;
-        delete &fileto;
+        delete &namefrom;
+        delete &nameto;
         delete &tname;
+    }
+
+    void setNameFrom(QString name)
+    {
+        namefrom = name;
+    }
+
+    void setNameTo(QString name)
+    {
+        nameto = name;
+    }
+
+    void setTableName(QString name)
+    {
+        tname = name;
     }
 
 signals:
