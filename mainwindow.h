@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QLabel>
+#include <QListWidget>
 namespace Ui {
 class MainWindow;
 }
@@ -18,6 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     bool convert_flag = true;
+    QListWidget listtable;
     //true = csv -> db
     //false = db -> csv
 
@@ -29,6 +31,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+signals:
+    //void choose_item_from_list();
 
 private:
     Ui::MainWindow *ui;
