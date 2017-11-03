@@ -18,13 +18,15 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+CONFIG+=c++11
+QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
-    converter.cpp
+        converter.cpp
 
 HEADERS += mainwindow.h \
         converter.h \
 
-FORMS    += mainwindow.ui
+FORMS   += mainwindow.ui
 
 

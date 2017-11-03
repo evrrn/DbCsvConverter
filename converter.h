@@ -1,30 +1,25 @@
 ﻿#ifndef CONVERTER_H
 #define CONVERTER_H
 
+#include <QAbstractTableModel>
 #include <QObject>
 #include <QWidget>
+#include <QList>
 
-class Converter : public QObject
+class ConverterModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 private:
     QString namefrom, nameto, tname;
+    QList<QList<QString>> rows;
 
 public:
-    Converter()
-    {
-        namefrom = "";
-        nameto = "";
-        tname = "";
-    }
+    ConverterModel(QObject *parent = 0);
 
-    ~Converter()
-    {
-        delete &namefrom;
-        delete &nameto;
-        delete &tname;
-    }
+    virtual int rowCount(const QModelIndex &parent) const override;
+    virtual int columnCount(const QModelIndex &parent) const override;
+    virtual QVariant data(const QModelIndex &index, int role) const override;
 
     void setNameFrom(QString name)
     {
@@ -44,7 +39,9 @@ public:
 signals:
 
 private slots:
-    void convertDbToCsv(QString dbname, QString tname, QString csvname);
+    bool readDbToModel(QString dbname, QString tname);
+
+    //void convertDbToCsv(QString dbname, QString tname, QString csvname);
     //void convertCsvToDb(QString, QString, QString);
 };
 
