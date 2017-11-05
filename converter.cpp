@@ -3,8 +3,8 @@
 #include <QFile>
 #include "converter.h"
 
-QByteArray getElementForCsv(QString elem) {
-    return "\"" + elem.toUtf8() + "\"";
+QByteArray getElementForCsv(QVariant elem) {
+    return "\"" + elem.toByteArray() /*.toUtf8()*/ + "\"";
 }
 
 ConverterModel::ConverterModel(QObject *parent): QAbstractTableModel(parent)
@@ -12,7 +12,44 @@ ConverterModel::ConverterModel(QObject *parent): QAbstractTableModel(parent)
 
 }
 
-bool ConverterModel::readDbToModel(QString dbname, QString tname)
+int ConverterModel::rowCount(const QModelIndex &parent) const
+{
+    if (parent.isValid())
+        return 0;
+
+    return rows.count();
+}
+
+int ConverterModel::columnCount(const QModelIndex &parent) const
+{
+    if (parent.isValid())
+        return 0;
+
+    if (rows.count() == 0)
+            return 0;
+
+    return rows.first().count();
+}
+
+QVariant ConverterModel::data(const QModelIndex &index, int role) const
+{
+    if (role == Qt::DisplayRole){
+        if (!index.isValid())
+            return QVariant();
+
+        return rows.at(index.row()).at(index.column());
+    }
+
+    return QVariant();
+}
+
+QModelIndex ConverterModel::index(int row, int column, const QModelIndex &parent) const
+{
+    return hasIndex(row, column, parent) ?
+                createIndex(row, column, (void*)&rows[row][column]) : QModelIndex();
+}
+
+bool ConverterModel::readFromDbToModel(QString dbname, QString tname)
 {
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
     sdb.setDatabaseName("../DbCsvConverter/db/" + dbname);
@@ -27,7 +64,7 @@ bool ConverterModel::readDbToModel(QString dbname, QString tname)
     int i, j;
 
     QSqlRecord columns = sdb.record(tname);
-    insertRows(0, 1);
+    insertRows(0, 1);       //вынести в хедер?
 
     for(j = 0; j < columns.count(); j++)
         setData(index(0, j), columns.fieldName(j));
@@ -39,11 +76,33 @@ bool ConverterModel::readDbToModel(QString dbname, QString tname)
     i = 1;
     while (query.next()) {
             for(j = 0; j < columns.count(); j++)
-                setData(index(i++, j), query.value(j).toString());
+                setData(index(i++, j), query.value(j).toString());      //передавать сигналы о вставке?
     }
 
     return 0;
+}
 
+bool ConverterModel::writeFromModelToCsv(QString csvname)
+{
+    QFile csvfile(csvname + ".csv");
+    int i, j;
+    int rows = rowCount(QModelIndex());
+    int columns = columnCount(QModelIndex());
+
+    if (csvfile.open(QIODevice::WriteOnly)) {
+
+        for(i = 0; i < rows; i++)
+            for(j = 0; j < columns; j++) {
+                csvfile.write(getElementForCsv(data(index(i, j, QModelIndex()), Qt::DisplayRole)));
+                if (j + 1 != columns)
+                    csvfile.write(", ");
+        }
+        csvfile.write("\n");
+        csvfile.close();
+
+    }    /*else
+        qDebug() << csvfile.error().errorString();*/
+    return 0;
 }
 
 
@@ -88,33 +147,9 @@ bool ConverterModel::readDbToModel(QString dbname, QString tname)
 
         csvfile.close();
 
-        }    /*else
+        }    else
         qDebug() << csvfile.error().errorString();
 
 }*/
-
-int ConverterModel::rowCount(const QModelIndex &parent) const
-{
-    if (parent.isValid()) return 0;
-    return rows.count();
-
-}
-
-int ConverterModel::columnCount(const QModelIndex &parent) const
-{
-    if (parent.isValid()) return 0;
-    return rows.first().count();
-
-}
-
-QVariant ConverterModel::data(const QModelIndex &index, int role) const
-{
-    if (role == Qt::DisplayRole){
-        if (!index.isValid())
-            return QVariant();
-        return rows.at(index.row()).at(index.column());
-    }
-    return QVariant();
-}
 
 

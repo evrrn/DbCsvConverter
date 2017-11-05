@@ -20,6 +20,7 @@ public:
     virtual int rowCount(const QModelIndex &parent) const override;
     virtual int columnCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override; //нужно?
 
     void setNameFrom(QString name)
     {
@@ -39,7 +40,8 @@ public:
 signals:
 
 private slots:
-    bool readDbToModel(QString dbname, QString tname);
+    bool readFromDbToModel(QString dbname, QString tname);
+    bool writeFromModelToCsv(QString csvname);
 
     //void convertDbToCsv(QString dbname, QString tname, QString csvname);
     //void convertCsvToDb(QString, QString, QString);
