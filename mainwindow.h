@@ -7,6 +7,8 @@
 #include <QString>
 #include <QLabel>
 #include <QListWidget>
+#include <QSqlTableModel>
+#include <QTableView>
 namespace Ui {
 class MainWindow;
 }
@@ -18,10 +20,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    bool convert_flag = true;
+    bool csvtodb_flag = true;
     QListWidget listtable;
     //true = csv -> db
     //false = db -> csv
+    //QSqlTableModel  *model;
+    //DataBase        *db;
+    //Временные имена, которые будут храниться в модели
+    QString csv_file_name;
+    QString db_file_name;
+    QString table_name;
 
 private slots:
     void on_csvdb_button_clicked();
@@ -31,6 +39,22 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+    void on_select_file_button_1_clicked();
+
+    void on_select_file_button_2_clicked();
+
+    void on_show_table_button_2_clicked();
+
+    void on_edit_table_name_2_editingFinished();
+
+    void on_edit_table_name_1_editingFinished();
+
+    void on_edit_table_name_2_textChanged(const QString &arg1);
+
+    void on_pushButton_3_clicked();
+
+    void on_transform_button_clicked();
+
 signals:
     //void choose_item_from_list();
 
