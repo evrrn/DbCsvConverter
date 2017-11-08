@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->edit_from_table_name,SIGNAL(editingFinished()),this,SLOT(edit_from_table_name_editingFinished()));
     connect(ui->edit_to_table_name,SIGNAL(editingFinished()),this,SLOT(edit_to_table_name_editingFinished()));
     connect(ui->transform_button,SIGNAL(clicked()),this,SLOT(transform_button_clicked()));
-
+    ui->transform_button->setEnabled(this->condition_checker());
     view_result_table = new QTableView;
     //sdb = QSqlDatabase::addDatabase("QSQLITE");
     //view_result_table->setGeometry(100,100,100,100);
@@ -63,7 +63,7 @@ void MainWindow::csvdb_button_clicked()
         ui->select_to_file_label->setText(QString("Выберите файл базы"));
         //очистка полей после изменения типа
     }
-
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 void MainWindow::dbcsv_button_clicked()
@@ -74,6 +74,7 @@ void MainWindow::dbcsv_button_clicked()
         ui->select_from_file_label->setText(QString("Выберите файл базы"));
         ui->select_to_file_label->setText(QString("Выберите файл .csv"));
     }
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 void MainWindow::select_from_file_button_clicked()
@@ -93,6 +94,7 @@ void MainWindow::select_from_file_button_clicked()
             setVisibleFromTableName(false);
         }
     }
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 void MainWindow::select_to_file_button_clicked()
@@ -122,6 +124,7 @@ void MainWindow::select_to_file_button_clicked()
         ui->file_to_name->setText(QFileInfo(csv_file_name).fileName());
 
     }
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 void MainWindow::show_from_table_button_clicked()
@@ -147,11 +150,13 @@ void MainWindow::show_from_table_button_clicked()
 void MainWindow::edit_from_table_name_editingFinished()
 {
     table_name = ui->edit_from_table_name->text();
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 void MainWindow::edit_to_table_name_editingFinished()
 {
     table_name = ui->edit_to_table_name->text();
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 /*
 void MainWindow::on_edit_table_name_2_textChanged(const QString &arg1)
@@ -172,6 +177,7 @@ void MainWindow::clear_input(){
     this->view_result_table->setModel(0);
     this->view_result_table->setHorizontalHeader(0);
     this->view_result_table->setVerticalHeader(0);
+    ui->transform_button->setEnabled(this->condition_checker());
 }
 
 
@@ -185,4 +191,11 @@ void MainWindow::transform_button_clicked()
     else{
 
     }
+}
+
+bool MainWindow::condition_checker(){
+    if(csv_file_name!="" && db_file_name!="" && table_name!="")
+        return true;
+    else return false;
+
 }

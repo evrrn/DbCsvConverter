@@ -34,7 +34,7 @@ public:
     //QSqlDatabase sdb;
     void setVisibleFromTableName(bool flag);
     void setVisibleToTableName(bool flag);
-
+    bool condition_checker();
 private slots:
     void csvdb_button_clicked();
     void dbcsv_button_clicked();
