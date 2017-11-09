@@ -37,20 +37,19 @@ QVariant ConverterModel::data(const QModelIndex &index, int role) const
         if (!index.isValid())
             return QVariant();
 
+        //return index.column();//rows.at(index.row()).at(index.column());
         return rows.at(index.row()).at(index.column());
     }
 
     return QVariant();
 }
 
-QModelIndex ConverterModel::index(int row, int column, const QModelIndex &parent) const
-{
-    return hasIndex(row, column, parent) ?
-                createIndex(row, column, (void*)&rows[row][column]) : QModelIndex();
-}
 
-bool ConverterModel::readFromDbToModel(QString dbname, QString tname)
+bool ConverterModel::readFromDbToModel(/*QString dbname, QString tname*/)
 {
+    QString dbname = "testDB";
+    QString tname = "T3";
+
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
     sdb.setDatabaseName("../DbCsvConverter/db/" + dbname);
 
@@ -64,20 +63,35 @@ bool ConverterModel::readFromDbToModel(QString dbname, QString tname)
     int i, j;
 
     QSqlRecord columns = sdb.record(tname);
-    insertRows(0, 1);       //вынести в хедер?
 
+
+    emit beginRemoveColumns({}, 0, header.count()-1);
+    header.clear();
+    emit endRemoveColumns();
+
+    emit beginInsertColumns({}, 0, columns.count()-1);
     for(j = 0; j < columns.count(); j++)
-        setData(index(0, j), columns.fieldName(j));
+        header << columns.fieldName(j);
+    emit endInsertColumns();
+
+    QSqlQuery q("SELECT count(*) FROM " + tname);
+    q.first();
+    int rowsize = q.value(0).toInt();
 
     QSqlQuery query("SELECT * FROM " + tname);
+    qDebug()<<query.exec();
+    qDebug()<<query.size()<<query.lastError()<<query.lastQuery();
+    emit beginInsertRows(QModelIndex(), 0, rowsize-1);
 
-    insertRows(1, query.size());
 
-    i = 1;
+    i = 0;
     while (query.next()) {
+        rows << QStringList();
             for(j = 0; j < columns.count(); j++)
-                setData(index(i++, j), query.value(j).toString());      //передавать сигналы о вставке?
+                rows.last()<<query.value(j).toString();
     }
+
+    emit endInsertRows();
 
     return 0;
 }
@@ -103,6 +117,17 @@ bool ConverterModel::writeFromModelToCsv(QString csvname)
     }    /*else
         qDebug() << csvfile.error().errorString();*/
     return 0;
+}
+
+QVariant ConverterModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole){
+        if (orientation == Qt::Horizontal){
+            if (section < header.size()) return header[section];
+            else return "";
+        }
+    } else return QAbstractTableModel::headerData(section, orientation, role);
+
 }
 
 

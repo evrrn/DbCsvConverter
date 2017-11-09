@@ -5,13 +5,13 @@
 #include <QVBoxLayout>
 #include <QtSql>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->table->setModel(&model);
+    ui->tableView->setModel(&model);
+
     ui->select_table_lable_1->setVisible(false);
     ui->edit_table_name_1->setVisible(false);
     ui->show_table_button_1->setVisible(false);
@@ -19,13 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->edit_table_name_2->setVisible(false);
     ui->show_table_button_2->setVisible(false);
 
-    /*connect(ui->startButton, &QPushButton::clicked, [this](bool){
-        timer.start();
-    });
-    connect(ui->resetButton, &QPushButton::clicked, [this](bool){
-        timer.restart();
-        model.reset();
-    });*/
+    connect(ui->dbcsv_button, SIGNAL(clicked(bool)), &model, SLOT(readFromDbToModel()));
+
     //QPushButton *b = new QPushButton(this);
     //QVBoxLayout *layout = new QVBoxLayout(this);
     //layout->addWidget(b);
@@ -54,6 +49,7 @@ void MainWindow::on_csvdb_button_clicked()
 
 void MainWindow::on_dbcsv_button_clicked()
 {
+    //emit valueChanged();
     //this->convert_flag = false;
     if (this->csvtodb_flag){
         this->csvtodb_flag = false;
@@ -158,10 +154,10 @@ void MainWindow::on_edit_table_name_2_textChanged(const QString &arg1)
     table_name = arg1;
 }
 
-void MainWindow::on_pushButton_3_clicked()
+/*void MainWindow::on_pushButton_3_clicked()
 {
 
-}
+}*/
 
 void MainWindow::on_transform_button_clicked()
 {

@@ -53,12 +53,13 @@ private slots:
 
     void on_edit_table_name_2_textChanged(const QString &arg1);
 
-    void on_pushButton_3_clicked();
+    //void on_pushButton_3_clicked();
 
     void on_transform_button_clicked();
 
 signals:
     //void choose_item_from_list();
+   // void valueChanged();
 
 private:
     Ui::MainWindow *ui;
