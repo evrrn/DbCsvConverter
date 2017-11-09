@@ -1,6 +1,5 @@
 ﻿#include "mainwindow.h"
 #include <QApplication>
-#include "converter.h"
 
 int main(int argc, char *argv[])
 {

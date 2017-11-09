@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->show_table_button_2->setVisible(false);
 
     connect(ui->dbcsv_button, SIGNAL(clicked(bool)), &model, SLOT(readFromDbToModel()));
+    connect(ui->transform_button, SIGNAL(clicked(bool)), &model, SLOT(writeFromModelToCsv()));
+
+    connect(ui->transform_button, SIGNAL(clicked(bool)), &model, SLOT(writeFromModelToCsv()));
 
     //QPushButton *b = new QPushButton(this);
     //QVBoxLayout *layout = new QVBoxLayout(this);

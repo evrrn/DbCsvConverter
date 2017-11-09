@@ -2,8 +2,6 @@
 #define CONVERTER_H
 
 #include <QAbstractTableModel>
-#include <QObject>
-#include <QWidget>
 #include <QList>
 
 class ConverterModel : public QAbstractTableModel
@@ -11,9 +9,10 @@ class ConverterModel : public QAbstractTableModel
     Q_OBJECT
 
 private:
-    QString namefrom, nameto, tname;
-    QList<QList<QString>> rows;
+    QString dbname, csvname, tname;
+    QList<QStringList> rows;
     QStringList header;
+
 public:
     ConverterModel(QObject *parent = 0);
 
@@ -21,17 +20,17 @@ public:
     virtual int columnCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
-    void setNameFrom(QString name="testDB")
+    void setDbName(QString name)
     {
-        namefrom = name;
+        dbname = name;
     }
 
-    void setNameTo(QString name="outT2")
+    void setCsvName(QString name)
     {
-        nameto = name;
+        csvname = name;
     }
 
-    void setTableName(QString name="T2")
+    void setTableName(QString name)
     {
         tname = name;
     }
@@ -39,15 +38,12 @@ public:
 signals:
 
 private slots:
-    bool readFromDbToModel(/*QString dbname, QString tname*/);
-    bool writeFromModelToCsv(QString csvname);
-
-    //void convertDbToCsv(QString dbname, QString tname, QString csvname);
-    //void convertCsvToDb(QString, QString, QString);
+    bool readFromDbToModel();
+    bool writeFromModelToCsv();
 
     // QAbstractItemModel interface
 public:
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
 };
 
