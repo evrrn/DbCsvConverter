@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    bool csvtodb_flag = true;
+    bool csvtodb_flag;
     QListWidget listtable;
     //true = csv -> db
     //false = db -> csv
@@ -32,31 +32,29 @@ public:
     QString csv_file_name;
     QString db_file_name;
     QString table_name;
-
+    QTableView *view_result_table;
+    //QSqlDatabase sdb;
+    void setVisibleFromTableName(bool flag);
+    void setVisibleToTableName(bool flag);
+    bool condition_checker();
 private slots:
-    void on_csvdb_button_clicked();
+    void csvdb_button_clicked();
+    void dbcsv_button_clicked();
 
-    void on_dbcsv_button_clicked();
+    void select_from_file_button_clicked();
+    void select_to_file_button_clicked();
 
-    //void on_pushButton_clicked();
+    void show_from_table_button_clicked();
 
-    //void on_pushButton_2_clicked();
-    void on_select_file_button_1_clicked();
+    void edit_from_table_name_editingFinished();
 
-    void on_select_file_button_2_clicked();
+    void edit_to_table_name_editingFinished();
 
-    void on_show_table_button_2_clicked();
 
-    void on_edit_table_name_2_editingFinished();
+    //void on_edit_table_name_2_textChanged(const QString &arg1);
 
-    void on_edit_table_name_1_editingFinished();
-
-    void on_edit_table_name_2_textChanged(const QString &arg1);
-
-    //void on_pushButton_3_clicked();
-
-    void on_transform_button_clicked();
-
+    void transform_button_clicked();
+    void clear_input();
 signals:
     //void choose_item_from_list();
    // void valueChanged();
@@ -67,3 +65,14 @@ private:
 };
 
 #endif // MAINWINDOW_H
+
+/*
+1.+ Сделать явные connect
+2.+ Переименовать кнопки выбора файла  from, to
+3.+ Переставить местами поля ввода для имени таблицы(в начале идет 2, а потом 1, ето не круто)
+4. условие для активации кнопки "Преобразовать" и "Вывод таблицы"
+5.+ окно для вывода результирующей модели
+5.1. size of block
+6.+ clear-function
+6.1. clear model
+*/
