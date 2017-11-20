@@ -1,11 +1,4 @@
-﻿#include <QtSql>
-#include <QSqlRecord>
-#include <QFile>
-#include "converter.h"
-
-QByteArray getElementForCsv(QVariant elem) {
-    return "\"" + elem.toByteArray() + "\"";
-}
+﻿#include "converter.h"
 
 ConverterModel::ConverterModel(QObject *parent): QAbstractTableModel(parent)
 {
@@ -54,79 +47,20 @@ QVariant ConverterModel::headerData(int section, Qt::Orientation orientation, in
     return QAbstractTableModel::headerData(section, orientation, role);
 }
 
-bool ConverterModel::readFromDbToModel()
+void ConverterModel::clearTable()
 {
-    QString dbname = "testDB";
-    QString tname = "T3";
+    if (columnCount(QModelIndex()) == 0)
+        return;
 
-    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
-    sdb.setDatabaseName("../DbCsvConverter/db/" + dbname);
+    emit beginResetModel();
 
-    if (!sdb.open())
-          qDebug() << sdb.lastError().text();
-
-    //  проверить, что таблица существует, а не создается
-
-    int j;
-
-    QSqlRecord columns = sdb.record(tname);
+    emit beginRemoveColumns(QModelIndex(), 0, rows.count()-1);
+    rows.clear();
+    emit endRemoveColumns();
 
     emit beginRemoveColumns(QModelIndex(), 0, header.count()-1);
     header.clear();
     emit endRemoveColumns();
 
-    emit beginInsertColumns(QModelIndex(), 0, columns.count()-1);
-    for(j = 0; j < columns.count(); j++)
-        header << columns.fieldName(j);
-    emit endInsertColumns();
-
-    QSqlQuery rowsize("SELECT count(*) FROM " + tname);
-    rowsize.first();
-    int rowcount = rowsize.value(0).toInt();
-
-    QSqlQuery query("SELECT * FROM " + tname);
-    emit beginInsertRows(QModelIndex(), 0, rowcount-1);
-    while (query.next()) {
-        rows << QStringList();
-        for(j = 0; j < columns.count(); j++)
-             rows.last() << query.value(j).toString();
-    }
-    emit endInsertRows();
-
-    return 0;
+    emit endResetModel();
 }
-
-bool ConverterModel::writeFromModelToCsv()
-{
-    QString csvname = "outcsv";
-    QFile csvfile(csvname + ".csv");
-
-    int i, j;
-    int rows = rowCount(QModelIndex());
-    int columns = columnCount(QModelIndex());
-
-    if (csvfile.open(QIODevice::WriteOnly)) {
-
-        for(j = 0; j < columns; j++) {
-            csvfile.write(getElementForCsv(headerData(j, Qt::Horizontal, Qt::DisplayRole)));
-            if (j + 1 != columns)
-                csvfile.write(", ");
-        }
-        csvfile.write("\n");
-
-        for(i = 0; i < rows; i++) {
-            for(j = 0; j < columns; j++) {
-                csvfile.write(getElementForCsv(data(index(i, j, QModelIndex()), Qt::DisplayRole)));
-                if (j + 1 != columns)
-                    csvfile.write(", ");
-            }
-            csvfile.write("\n");
-        }
-        csvfile.close();
-
-    }    /*else
-        qDebug() << csvfile.error().errorString();*/
-    return 0;
-}
-
-

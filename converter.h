@@ -8,10 +8,11 @@ class ConverterModel : public QAbstractTableModel
 {
     Q_OBJECT
 
-private:
+public:
     QString dbname, csvname, tname;
     QList<QStringList> rows;
     QStringList header;
+    QStringList output;
 
 public:
     ConverterModel(QObject *parent = 0);
@@ -19,6 +20,13 @@ public:
     virtual int rowCount(const QModelIndex &parent) const override;
     virtual int columnCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
+    void clearTable();
+
+signals:
+
+private slots:
+    bool readFromDbToModel();
+    bool writeFromModelToCsv();
 
     void setDbName(QString name)
     {
@@ -35,11 +43,12 @@ public:
         tname = name;
     }
 
-signals:
-
-private slots:
-    bool readFromDbToModel();
-    bool writeFromModelToCsv();
+    void clearNames()
+    {
+        dbname = "";
+        csvname = "";
+        tname = "";
+    }
 
     // QAbstractItemModel interface
 public:

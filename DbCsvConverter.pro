@@ -22,7 +22,8 @@ CONFIG+=c++11
 QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
-        converter.cpp
+        converter.cpp \
+        dbtocsv.cpp \
 
 HEADERS += mainwindow.h \
         converter.h \
