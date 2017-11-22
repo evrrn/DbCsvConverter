@@ -22,7 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     connect(ui->show_from_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromDbToModel()));
+    connect(ui->show_to_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromCsvToModel()));
+
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
+    connect(this, SIGNAL(transformToDb()), &model, SLOT(writeFromModelToDb()));
 
     // обратно connect(ui->show_to_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromCsvToModel()));
     //connect(this, SIGNAL(csvToDb()), &model, SLOT(writeFromModelToDb()));

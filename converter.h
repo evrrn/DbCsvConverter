@@ -28,6 +28,9 @@ private slots:
     bool readFromDbToModel();
     bool writeFromModelToCsv();
 
+    bool readFromCsvToModel();
+    bool writeFromModelToDb();
+
     void setDbName(QString name)
     {
         dbname = name;
