@@ -14,22 +14,26 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(newTable(QString)), &model, SLOT(setTableName(QString)));
     connect(this, SIGNAL(newCsv(QString)), &model, SLOT(setCsvName(QString)));
 
-    connect(this, SIGNAL(newDb(QString)), this, SLOT(names_arent_empty()));
-    connect(this, SIGNAL(newTable(QString)), this, SLOT(names_arent_empty()));
-    connect(this, SIGNAL(newCsv(QString)), this, SLOT(names_arent_empty()));
+    connect(this, SIGNAL(notNullInput(bool)), this, SLOT(enableLoadDataButton(bool)));
 
-    connect(this, SIGNAL(namesArentEmpty(bool)), this, SLOT(enableTransformButton(bool)));
+    connect(this, SIGNAL(validInput(bool)), this, SLOT(inputOutputValidator()));
+    connect(this, SIGNAL(notNullOutput(bool)), this, SLOT(inputOutputValidator()));
 
+    connect(this, SIGNAL(newDb(QString)), this, SLOT(checkDb()));
+    connect(this, SIGNAL(newTable(QString)), this, SLOT(checkDb()));
+    connect(this, SIGNAL(newCsv(QString)), this, SLOT(checkCsv()));
 
-    connect(ui->showFromTableButton, SIGNAL(clicked(bool)), &model, SLOT(readFromDbToModel()));
+    connect(this, SIGNAL(validData(bool)), this, SLOT(enableTransformButton(bool)));
+
+    connect(ui->loadDataButton, SIGNAL(clicked(bool)), this, SLOT(readToModel()));
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
 
-    // обратно connect(ui->show_to_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromCsvToModel()));
-    //connect(this, SIGNAL(csvToDb()), &model, SLOT(writeFromModelToDb()));
-
     this->csvToDbFlag = true;
+    this->modelIsEmpty = true;
 
     ui->transformButton->setEnabled(false);
+    ui->loadDataButton->setEnabled(false);
+
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
 
@@ -53,14 +57,12 @@ void MainWindow::setVisibleFromTableName(bool flag)
 {
     ui->selectFromTableLable->setVisible(flag);
     ui->editFromTableName->setVisible(flag);
-    ui->showFromTableButton->setVisible(flag);
 }
 
 void MainWindow::setVisibleToTableName(bool flag)
 {
     ui->selectToTableLable->setVisible(flag);
     ui->editToTableName->setVisible(flag);
-    ui->showToTableButton->setVisible(flag);
 }
 
 void MainWindow::csvDbButtonClicked()
@@ -159,9 +161,20 @@ void MainWindow::clearInput(){
     this->tableName = "";
     emit newTable(tableName);
 
+    modelIsEmpty = true;
     model.clearTable();
 }
 
+void MainWindow::readToModel()
+{
+    if (!this->csvToDbFlag)
+        model.readFromDbToModel();
+    //else
+        //model.readFromCsvToModel();
+
+    modelIsEmpty = false;
+    emit validInput(true);
+}
 
 void MainWindow::transformButtonClicked()
 {
@@ -176,12 +189,41 @@ void MainWindow::enableTransformButton(bool enable)
     ui->transformButton->setEnabled(enable);
 }
 
-void MainWindow::names_arent_empty()
+void MainWindow::enableLoadDataButton(bool enable)
 {
-    if (csvName != "" && dbName != "" && tableName != "")
-    {
-        emit namesArentEmpty(true);
-        return;
-    }
-    emit namesArentEmpty(false);
+    ui->loadDataButton->setEnabled(enable);
 }
+
+void MainWindow::inputOutputValidator()
+{
+    emit validData(dbName != "" && tableName != "" && csvName != "" && !modelIsEmpty);
+}
+
+void MainWindow::checkCsv()
+{
+    if (this->csvToDbFlag)
+    {
+        emit notNullInput(csvName != "");
+
+        modelIsEmpty = true;
+        model.clearTable();
+        emit validInput(false);
+    }
+    else
+        emit notNullOutput(csvName != "");;
+}
+
+void MainWindow::checkDb()
+{
+    if (!this->csvToDbFlag)
+    {
+        emit notNullInput(dbName != "" && tableName != "");
+
+        modelIsEmpty = true;
+        model.clearTable();
+        emit validInput(false);
+    }
+    else
+        emit notNullOutput(dbName != "" && tableName != "");
+}
+

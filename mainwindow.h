@@ -21,6 +21,7 @@ public:
     ~MainWindow();
 
     bool csvToDbFlag;
+    bool modelIsEmpty;
 
     QString csvName;
     QString dbName;
@@ -39,11 +40,18 @@ private slots:
     void editFromTableNameEditingFinished();
     void editToTableNameEditingFinished();
 
-    void transformButtonClicked();
-    void clearInput();
+    void readToModel();
 
-    void names_arent_empty();
+    void enableLoadDataButton(bool enable);
     void enableTransformButton(bool enable);
+
+    void transformButtonClicked();
+
+    void clearInput();
+    void inputOutputValidator();
+
+    void checkDb();
+    void checkCsv();
 
 signals:
     void newCsv(QString);
@@ -53,7 +61,11 @@ signals:
     void transformToDb();
     void transformToCsv();
 
-    void namesArentEmpty(bool);
+    void validData(bool);
+    void validInput(bool);
+
+    void notNullInput(bool);
+    void notNullOutput(bool);
 
 private:
     Ui::MainWindow *ui;
