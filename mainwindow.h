@@ -20,30 +20,30 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    bool csvtodb_flag;
+    bool csvToDbFlag;
 
-    QString csv_file_name;
-    QString db_file_name;
-    QString table_name;
+    QString csvName;
+    QString dbName;
+    QString tableName;
 
     void setVisibleFromTableName(bool flag);
     void setVisibleToTableName(bool flag);
 
 private slots:
-    void csvdb_button_clicked();
-    void dbcsv_button_clicked();
+    void csvDbButtonClicked();
+    void dbCsvButtonClicked();
 
-    void select_from_file_button_clicked();
-    void select_to_file_button_clicked();
+    void selectFromFileButtonClicked();
+    void selectToFileButtonClicked();
 
-    void edit_from_table_name_editingFinished();
-    void edit_to_table_name_editingFinished();
+    void editFromTableNameEditingFinished();
+    void editToTableNameEditingFinished();
 
-    void transform_button_clicked();
-    void clear_input();
+    void transformButtonClicked();
+    void clearInput();
 
     void names_arent_empty();
-    void enable_transform_button(bool enable);
+    void enableTransformButton(bool enable);
 
 signals:
     void newCsv(QString);
