@@ -17,7 +17,7 @@ bool ConverterModel::readFromDbToModel()
     }
 
     QSqlDatabase::removeDatabase("db");
-    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE","db");
+    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE", "db");
     sdb.setDatabaseName(dbname);
 
     if (!sdb.open())
@@ -34,9 +34,10 @@ bool ConverterModel::readFromDbToModel()
         return 1;
     }
 
+    clearTable();
+
     emit beginResetModel();
 
-    clearTable();
     int j;
 
     for(j = 0; j < columns.count(); j++)

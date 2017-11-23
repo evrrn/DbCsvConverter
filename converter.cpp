@@ -47,6 +47,7 @@ QVariant ConverterModel::headerData(int section, Qt::Orientation orientation, in
             else return "";
         }
     }
+
     return QAbstractTableModel::headerData(section, orientation, role);
 }
 
@@ -55,6 +56,10 @@ void ConverterModel::clearTable()
     if (columnCount(QModelIndex()) == 0)
         return;
 
+    emit beginResetModel();
+
     rows.clear();
     header.clear();
+
+    emit endResetModel();
 }
