@@ -14,37 +14,39 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(newTable(QString)), &model, SLOT(setTableName(QString)));
     connect(this, SIGNAL(newCsv(QString)), &model, SLOT(setCsvName(QString)));
 
-    connect(this, SIGNAL(newDb(QString)), this, SLOT(names_arent_empty()));
-    connect(this, SIGNAL(newTable(QString)), this, SLOT(names_arent_empty()));
-    connect(this, SIGNAL(newCsv(QString)), this, SLOT(names_arent_empty()));
+    connect(this, SIGNAL(notNullInput(bool)), this, SLOT(enableLoadDataButton(bool)));
 
-    connect(this, SIGNAL(namesArentEmpty(bool)), this, SLOT(enable_transform_button(bool)));
+    connect(this, SIGNAL(validInput(bool)), this, SLOT(inputOutputValidator()));
+    connect(this, SIGNAL(notNullOutput(bool)), this, SLOT(inputOutputValidator()));
 
+    connect(this, SIGNAL(newDb(QString)), this, SLOT(checkDb()));
+    connect(this, SIGNAL(newTable(QString)), this, SLOT(checkDb()));
+    connect(this, SIGNAL(newCsv(QString)), this, SLOT(checkCsv()));
 
-    connect(ui->show_from_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromDbToModel()));
-    connect(ui->show_to_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromCsvToModel()));
+    connect(this, SIGNAL(validData(bool)), this, SLOT(enableTransformButton(bool)));
 
+    connect(ui->loadDataButton, SIGNAL(clicked(bool)), this, SLOT(readToModel()));
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
     connect(this, SIGNAL(transformToDb()), &model, SLOT(writeFromModelToDb()));
 
-    // обратно connect(ui->show_to_table_button, SIGNAL(clicked(bool)), &model, SLOT(readFromCsvToModel()));
-    //connect(this, SIGNAL(csvToDb()), &model, SLOT(writeFromModelToDb()));
+    this->csvToDbFlag = true;
+    this->modelIsEmpty = true;
 
-    this->csvtodb_flag = true;
+    ui->transformButton->setEnabled(false);
+    ui->loadDataButton->setEnabled(false);
 
-    ui->transform_button->setEnabled(false);
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
 
-    connect(ui->csvdb_button, SIGNAL(clicked()), this, SLOT(csvdb_button_clicked()));
-    connect(ui->dbcsv_button, SIGNAL(clicked()), this, SLOT(dbcsv_button_clicked()));
+    connect(ui->csvDbButton, SIGNAL(clicked()), this, SLOT(csvDbButtonClicked()));
+    connect(ui->dbCsvButton, SIGNAL(clicked()), this, SLOT(dbCsvButtonClicked()));
 
-    connect(ui->select_from_file_button, SIGNAL(clicked()), this, SLOT(select_from_file_button_clicked()));
-    connect(ui->select_to_file_button, SIGNAL(clicked()), this, SLOT(select_to_file_button_clicked()));
+    connect(ui->selectFromFileButton, SIGNAL(clicked()), this, SLOT(selectFromFileButtonClicked()));
+    connect(ui->selectToFileButton, SIGNAL(clicked()), this, SLOT(selectToFileButtonClicked()));
 
-    connect(ui->edit_from_table_name, SIGNAL(editingFinished()), this, SLOT(edit_from_table_name_editingFinished()));
-    connect(ui->edit_to_table_name, SIGNAL(editingFinished()), this, SLOT(edit_to_table_name_editingFinished()));
-    connect(ui->transform_button, SIGNAL(clicked()), this ,SLOT(transform_button_clicked()));
+    connect(ui->editFromTableName, SIGNAL(editingFinished()), this, SLOT(editFromTableNameEditingFinished()));
+    connect(ui->editToTableName, SIGNAL(editingFinished()), this, SLOT(editToTableNameEditingFinished()));
+    connect(ui->transformButton, SIGNAL(clicked()), this ,SLOT(transformButtonClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -54,136 +56,175 @@ MainWindow::~MainWindow()
 
 void MainWindow::setVisibleFromTableName(bool flag)
 {
-    ui->select_from_table_lable->setVisible(flag);
-    ui->edit_from_table_name->setVisible(flag);
-    ui->show_from_table_button->setVisible(flag);
+    ui->selectFromTableLable->setVisible(flag);
+    ui->editFromTableName->setVisible(flag);
 }
 
 void MainWindow::setVisibleToTableName(bool flag)
 {
-    ui->select_to_table_lable->setVisible(flag);
-    ui->edit_to_table_name->setVisible(flag);
-    ui->show_to_table_button->setVisible(flag);
+    ui->selectToTableLable->setVisible(flag);
+    ui->editToTableName->setVisible(flag);
 }
 
-void MainWindow::csvdb_button_clicked()
+void MainWindow::csvDbButtonClicked()
 {
-    if (!this->csvtodb_flag)
+    if (!this->csvToDbFlag)
     {
-        this->csvtodb_flag = true;
-        ui->select_from_file_label->setText(QString("Выберите файл .csv"));
-        ui->select_to_file_label->setText(QString("Выберите файл базы"));
-        clear_input();
+        this->csvToDbFlag = true;
+        ui->selectFromFileLabel->setText(QString("Choose file .csv"));
+        ui->selectToFileLabel->setText(QString("Choose database"));
+        clearInput();
     }
 }
 
-void MainWindow::dbcsv_button_clicked()
+void MainWindow::dbCsvButtonClicked()
 {
-    if (this->csvtodb_flag)
+    if (this->csvToDbFlag)
     {
-        this->csvtodb_flag = false;
-        ui->select_from_file_label->setText(QString("Выберите файл базы"));
-        ui->select_to_file_label->setText(QString("Выберите файл .csv"));
-        clear_input();
+        this->csvToDbFlag = false;
+        ui->selectFromFileLabel->setText(QString("Choose database"));
+        ui->selectToFileLabel->setText(QString("Choose file .csv"));
+        clearInput();
     }
 }
 
-void MainWindow::select_from_file_button_clicked()
+void MainWindow::selectFromFileButtonClicked()
 {
-    if (this->csvtodb_flag)
+    if (this->csvToDbFlag)
     {
-        csv_file_name = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.csv");
-        ui->file_from_label->setText(QFileInfo(csv_file_name).fileName());
-        emit newCsv(csv_file_name);
+        csvName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.csv");
+        ui->fileFromLabel->setText(QFileInfo(csvName).fileName());
+        emit newCsv(csvName);
     }
     else
     {
-        db_file_name = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
-        ui->file_from_label->setText( QFileInfo(db_file_name).fileName());
-        ui->edit_from_table_name->clear();
+        dbName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
+        ui->fileFromLabel->setText( QFileInfo(dbName).fileName());
+        ui->editFromTableName->clear();
 
-        if (db_file_name != "")
+        if (dbName != "")
             setVisibleFromTableName(true);
         else
             setVisibleFromTableName(false);
 
-        emit newDb(db_file_name);
+        emit newDb(dbName);
     }
 }
 
-void MainWindow::select_to_file_button_clicked()
+void MainWindow::selectToFileButtonClicked()
 {
-    if (this->csvtodb_flag)
+    if (this->csvToDbFlag)
     {
-        db_file_name = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
-        ui->file_to_label->setText(QFileInfo(db_file_name).fileName());
-        ui->edit_to_table_name->clear();
+        dbName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
+        ui->fileToLabel->setText(QFileInfo(dbName).fileName());
+        ui->editToTableName->clear();
 
-        if(db_file_name != "")
+        if(dbName != "")
             setVisibleToTableName(true);
         else
             setVisibleToTableName(false);
 
-        emit newDb(db_file_name);
+        emit newDb(dbName);
     }
     else
     {
-        csv_file_name = QFileDialog::getSaveFileName(0, "Open Dialog", "");
-        ui->file_to_label->setText(QFileInfo(csv_file_name).fileName());
-        emit newCsv(csv_file_name);
+        csvName = QFileDialog::getSaveFileName(0, "Open Dialog", "");
+        ui->fileToLabel->setText(QFileInfo(csvName).fileName());
+        emit newCsv(csvName);
     }
 }
 
-void MainWindow::edit_from_table_name_editingFinished()
+void MainWindow::editFromTableNameEditingFinished()
 {
-    table_name = ui->edit_from_table_name->text();
-    emit newTable(table_name);
+    tableName = ui->editFromTableName->text();
+    emit newTable(tableName);
 }
 
-void MainWindow::edit_to_table_name_editingFinished()
+void MainWindow::editToTableNameEditingFinished()
 {
-    table_name = ui->edit_to_table_name->text();
-    emit newTable(table_name);
+    tableName = ui->editToTableName->text();
+    emit newTable(tableName);
 }
 
-void MainWindow::clear_input(){
+void MainWindow::clearInput(){
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
 
-    ui->file_from_label->clear();
-    ui->file_to_label->clear();
-    ui->edit_from_table_name->clear();
-    ui->edit_to_table_name->clear();
+    ui->fileFromLabel->clear();
+    ui->fileToLabel->clear();
+    ui->editFromTableName->clear();
+    ui->editToTableName->clear();
 
-    this->csv_file_name = "";
-    emit newCsv(csv_file_name);
-    this->db_file_name = "";
-    emit newDb(db_file_name);
-    this->table_name = "";
-    emit newTable(table_name);
+    this->csvName = "";
+    emit newCsv(csvName);
+    this->dbName = "";
+    emit newDb(dbName);
+    this->tableName = "";
+    emit newTable(tableName);
 
+    modelIsEmpty = true;
     model.clearTable();
 }
 
-
-void MainWindow::transform_button_clicked()
+void MainWindow::readToModel()
 {
-    if (this->csvtodb_flag)
+    if (!this->csvToDbFlag)
+        model.readFromDbToModel();
+    //else
+        //model.readFromCsvToModel();
+
+    modelIsEmpty = false;
+    emit validInput(true);
+}
+
+void MainWindow::transformButtonClicked()
+{
+    if (this->csvToDbFlag)
         emit transformToDb();
     else
         emit transformToCsv();
 }
 
-void MainWindow::enable_transform_button(bool enable)
+void MainWindow::enableTransformButton(bool enable)
 {
-    ui->transform_button->setEnabled(enable);
+    ui->transformButton->setEnabled(enable);
 }
 
-void MainWindow::names_arent_empty()
+void MainWindow::enableLoadDataButton(bool enable)
 {
-    if (csv_file_name != "" && db_file_name != "" && table_name != "") {
-        emit namesArentEmpty(true);
-        return;
-    }
-    emit namesArentEmpty(false);
+    ui->loadDataButton->setEnabled(enable);
 }
+
+void MainWindow::inputOutputValidator()
+{
+    emit validData(dbName != "" && tableName != "" && csvName != "" && !modelIsEmpty);
+}
+
+void MainWindow::checkCsv()
+{
+    if (this->csvToDbFlag)
+    {
+        emit notNullInput(csvName != "");
+
+        modelIsEmpty = true;
+        model.clearTable();
+        emit validInput(false);
+    }
+    else
+        emit notNullOutput(csvName != "");;
+}
+
+void MainWindow::checkDb()
+{
+    if (!this->csvToDbFlag)
+    {
+        emit notNullInput(dbName != "" && tableName != "");
+
+        modelIsEmpty = true;
+        model.clearTable();
+        emit validInput(false);
+    }
+    else
+        emit notNullOutput(dbName != "" && tableName != "");
+}
+

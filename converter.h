@@ -22,11 +22,7 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const override;
     void clearTable();
 
-signals:
-
 private slots:
-    bool readFromDbToModel();
-    bool writeFromModelToCsv();
 
     bool readFromCsvToModel();
     bool writeFromModelToDb();
@@ -52,6 +48,10 @@ private slots:
         csvname = "";
         tname = "";
     }
+
+public slots:
+    bool readFromDbToModel();
+    bool writeFromModelToCsv();
 
     // QAbstractItemModel interface
 public:

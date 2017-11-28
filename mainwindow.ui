@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>449</width>
+    <width>368</width>
     <height>400</height>
    </rect>
   </property>
@@ -19,11 +19,11 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_9">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="horizontalSpacerLeft">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -36,7 +36,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QRadioButton" name="csvdb_button">
+         <widget class="QRadioButton" name="csvDbButton">
           <property name="text">
            <string>CSV to DB</string>
           </property>
@@ -49,14 +49,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="dbcsv_button">
+         <widget class="QRadioButton" name="dbCsvButton">
           <property name="text">
            <string>DB to CSV</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <spacer name="horizontalSpacerRight">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -71,30 +71,30 @@
        </layout>
       </item>
       <item>
-       <widget class="QLabel" name="select_from_file_label">
+       <widget class="QLabel" name="selectFromFileLabel">
         <property name="text">
-         <string>Выберите файл .csv</string>
+         <string>Choose file .csv</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayoutTop">
         <item>
-         <widget class="QPushButton" name="select_from_file_button">
+         <widget class="QPushButton" name="selectFromFileButton">
           <property name="text">
            <string>file</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="file_from_label">
+         <widget class="QLabel" name="fileFromLabel">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_3">
+         <spacer name="horizontalSpacerTop">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -106,54 +106,54 @@
           </property>
          </spacer>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QLabel" name="select_from_table_lable">
+         <widget class="QPushButton" name="loadDataButton">
           <property name="text">
-           <string>Введите имя таблицы: </string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="edit_from_table_name"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="show_from_table_button">
-          <property name="text">
-           <string>Show Table</string>
+           <string>Load data</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QLabel" name="select_to_file_label">
+       <layout class="QHBoxLayout" name="horizontalLayoutSubtop">
+        <item>
+         <widget class="QLabel" name="selectFromTableLable">
+          <property name="text">
+           <string>Choose table: </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="editFromTableName"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="selectToFileLabel">
         <property name="text">
-         <string>Выберите файл базы</string>
+         <string>Choose database</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayoutBottom">
         <item>
-         <widget class="QPushButton" name="select_to_file_button">
+         <widget class="QPushButton" name="selectToFileButton">
           <property name="text">
            <string>file</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="file_to_label">
+         <widget class="QLabel" name="fileToLabel">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_4">
+         <spacer name="horizontalSpacerBottom">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -168,9 +168,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayoutSubbottom">
         <item>
-         <widget class="QLabel" name="select_to_table_lable">
+         <widget class="QLabel" name="selectToTableLable">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -178,21 +178,14 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>Введите имя таблицы: </string>
+           <string>Choose table: </string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="edit_to_table_name">
+         <widget class="QLineEdit" name="editToTableName">
           <property name="enabled">
            <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="show_to_table_button">
-          <property name="text">
-           <string>Show Table</string>
           </property>
          </widget>
         </item>
@@ -215,12 +208,12 @@
        <widget class="QTableView" name="tableView"/>
       </item>
       <item>
-       <widget class="QPushButton" name="transform_button">
+       <widget class="QPushButton" name="transformButton">
         <property name="enabled">
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Преобразовать</string>
+         <string>Transform</string>
         </property>
        </widget>
       </item>
@@ -233,16 +226,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>449</width>
+     <width>368</width>
      <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuCSV_DB_Converter">
+   <widget class="QMenu" name="menuCsvDbConverter">
     <property name="title">
      <string>CSV-DB Converter</string>
     </property>
    </widget>
-   <addaction name="menuCSV_DB_Converter"/>
+   <addaction name="menuCsvDbConverter"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

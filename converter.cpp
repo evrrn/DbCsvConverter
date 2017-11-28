@@ -26,7 +26,8 @@ int ConverterModel::columnCount(const QModelIndex &parent) const
 
 QVariant ConverterModel::data(const QModelIndex &index, int role) const
 {
-    if (role == Qt::DisplayRole){
+    if (role == Qt::DisplayRole)
+    {
         if (!index.isValid())
             return QVariant();
 
@@ -38,12 +39,15 @@ QVariant ConverterModel::data(const QModelIndex &index, int role) const
 
 QVariant ConverterModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (role == Qt::DisplayRole){
-        if (orientation == Qt::Horizontal) {
+    if (role == Qt::DisplayRole)
+    {
+        if (orientation == Qt::Horizontal)
+        {
             if (section < header.size()) return header[section];
             else return "";
         }
     }
+
     return QAbstractTableModel::headerData(section, orientation, role);
 }
 
@@ -54,13 +58,8 @@ void ConverterModel::clearTable()
 
     emit beginResetModel();
 
-    emit beginRemoveColumns(QModelIndex(), 0, rows.count()-1);
     rows.clear();
-    emit endRemoveColumns();
-
-    emit beginRemoveColumns(QModelIndex(), 0, header.count()-1);
     header.clear();
-    emit endRemoveColumns();
 
     emit endResetModel();
 }
