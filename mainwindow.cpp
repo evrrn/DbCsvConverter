@@ -170,8 +170,8 @@ void MainWindow::readToModel()
 {
     if (!this->csvToDbFlag)
         model.readFromDbToModel();
-    //else
-        //model.readFromCsvToModel();
+    else
+        model.readFromCsvToModel();
 
     modelIsEmpty = false;
     emit validInput(true);

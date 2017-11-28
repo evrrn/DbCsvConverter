@@ -23,10 +23,6 @@ public:
     void clearTable();
 
 private slots:
-
-    bool readFromCsvToModel();
-    bool writeFromModelToDb();
-
     void setDbName(QString name)
     {
         dbname = name;
@@ -52,6 +48,9 @@ private slots:
 public slots:
     bool readFromDbToModel();
     bool writeFromModelToCsv();
+
+    bool readFromCsvToModel();
+    bool writeFromModelToDb();
 
     // QAbstractItemModel interface
 public:
