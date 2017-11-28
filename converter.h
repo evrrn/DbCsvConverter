@@ -3,6 +3,9 @@
 
 #include <QAbstractTableModel>
 #include <QList>
+#include <QtSql>
+#include <QSqlRecord>
+#include <QFile>
 
 class ConverterModel : public QAbstractTableModel
 {
@@ -21,6 +24,7 @@ public:
     virtual int columnCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
     void clearTable();
+    QStringList readListOfTables();
 
 private slots:
     void setDbName(QString name)

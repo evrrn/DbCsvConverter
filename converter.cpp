@@ -63,3 +63,13 @@ void ConverterModel::clearTable()
 
     emit endResetModel();
 }
+
+QStringList ConverterModel::readListOfTables()
+{
+    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
+    sdb.setDatabaseName(dbname);
+    if (!sdb.open())
+        qDebug() << sdb.lastError().text();
+
+    return sdb.tables();
+}

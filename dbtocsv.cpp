@@ -1,7 +1,4 @@
-﻿#include <QtSql>
-#include <QSqlRecord>
-#include <QFile>
-#include "converter.h"
+﻿#include "converter.h"
 
 QByteArray getElementForCsv(QVariant elem)
 {

@@ -125,7 +125,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="editFromTableName"/>
+         <widget class="QComboBox" name="chooseFromTableName">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
