@@ -3,7 +3,9 @@
 #include <QFile>
 #include "converter.h"
 
-QString trimCSV(QString item){
+
+QString trimCSV(QString item)
+{
     if((!item.isEmpty())&&(item[0] == QChar(34)))
         item.remove(0,1);
     if((!item.isEmpty())&&(!item.isNull())&(item[item.count()-1] == QChar(34)))
@@ -14,7 +16,8 @@ QString trimCSV(QString item){
 
 }
 
-bool ConverterModel::readFromCsvToModel(){
+bool ConverterModel::readFromCsvToModel()
+{
     QFile csvfile(csvname);
 
     if (!QFile::exists(csvname))
@@ -23,7 +26,8 @@ bool ConverterModel::readFromCsvToModel(){
        return 1;
     }
 
-    if (!csvfile.open(QIODevice::ReadOnly)) {
+    if (!csvfile.open(QIODevice::ReadOnly))
+    {
         output << "Не удалось открыть файл " + csvname + " для записи";
         return 1;
     }
@@ -37,36 +41,48 @@ bool ConverterModel::readFromCsvToModel(){
     int step = 0;
 
     QTextStream out(&csvfile);
-    while(!out.atEnd()){
+    while(!out.atEnd())
+    {
         QString line(out.readLine().simplified());
         int count = line.count();
-        for (int i = 0;i<count;i++){
-
-            if (line[i] == QChar(34)){
-                if(Quote==false && item[0]==QChar(32))
+        for (int i = 0;i<count;i++)
+        {
+            if (line[i] == QChar(34))
+            {
+                if(Quote == false && item[0] == QChar(32))
                     item = "";
                 Quote = (Quote) ? false : true;
             }
-            if ((Quote != true)&(line[i] == _separator)){
+
+            if ((Quote != true)&(line[i] == _separator))
+            {
                 temp << trimCSV(item);
                 item = "";
-            }else{
+            }
+            else
+            {
                 item += line[i];
             }
-            if ((count-1 == i)&(Quote != true)){
+
+            if ((count-1 == i)&(Quote != true))
+            {
                 item = trimCSV(item);
                 if (item != "")
-                    temp<<(item);
-                if (step != 0){
+                    temp << (item);
+
+                if (step != 0)
+                {
                     emit beginInsertRows(QModelIndex(), 0, 0);
-                    rows<<temp;
+                    rows << temp;
                     emit endInsertRows();
                 }
-                else{
+                else
+                {
                     emit beginInsertColumns(QModelIndex(), 0, temp.size()-1);
                     header = temp;
                     emit endInsertColumns();
                 }
+
                 temp.clear();
                 item = "";
             }
@@ -75,7 +91,9 @@ bool ConverterModel::readFromCsvToModel(){
     }
     return 0;
 }
-bool ConverterModel::writeFromModelToDb(){
+
+bool ConverterModel::writeFromModelToDb()
+{
     if (!QFile::exists(dbname))
     {
        output << "Не существует базы данных " + dbname;
@@ -85,53 +103,63 @@ bool ConverterModel::writeFromModelToDb(){
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
     sdb.setDatabaseName(dbname);
 
-    if (!sdb.open()) {
+    if (!sdb.open())
+    {
         output << "Ошибка: " + sdb.lastError().text();
         return 1;
     }
 
-    QSqlQuery *querydrop = new QSqlQuery("DROP TABLE"+tname, sdb);
+    QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
     querydrop->exec();
 
-    QString qtodb = "CREATE TABLE "+tname+" (";
+    QString qtodb = "CREATE TABLE " + tname + " (";
 
-    for(int i=0; i<header.count();i++){
-        qtodb +=header[i]+" TEXT";
-        if(i!=header.count()-1){
-            qtodb+=", ";
+    for(int i = 0; i < header.count(); i++)
+    {
+        qtodb += header[i] + " TEXT";
+        if(i != header.count() - 1)
+        {
+            qtodb += ", ";
         }
-        else qtodb+=")";
+        else
+            qtodb += ")";
     }
 
     QSqlQuery *query = new QSqlQuery(qtodb, sdb);
     query->exec();
 
-    qtodb ="INSERT INTO " + tname +" (";
-    for(int i=0; i<header.count();i++){
-        qtodb +=header[i];
-        if(i!=header.count()-1){
-            qtodb+=", ";
+    qtodb = "INSERT INTO " + tname + " (";
+    for(int i = 0; i < header.count(); i++)
+    {
+        qtodb += header[i];
+        if(i != header.count() - 1)
+        {
+            qtodb += ", ";
         }
-        else qtodb+=") VALUES (";
+        else
+            qtodb += ") VALUES (";
     }
 
-    for(int i =0; i <rows.count();i++){
+    for(int i = 0; i < rows.count(); i++)
+    {
         QString tempString = qtodb;
-        for(int j=0;j<header.count();j++){
-            tempString +="\'"+rows[i][j]+"\'";
-            if(j!=header.count()-1){
-                tempString+=", ";
+        for(int j = 0; j < header.count(); j++)
+        {
+            tempString +="\'" + rows[i][j] + "\'";
+            if(j != header.count() - 1)
+            {
+                tempString += ", ";
             }
-            else tempString+=")";
+            else
+                tempString += ")";
         }
 
         query->prepare(tempString);
         bool f = query->exec();
-        if(!f){
+        if(!f)
+        {
             output<<"Не удалось выполнить команду";
-
         }
     }
-
     return 0;
 }
