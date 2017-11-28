@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->loadDataButton, SIGNAL(clicked(bool)), this, SLOT(readToModel()));
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
+    connect(this, SIGNAL(transformToDb()), &model, SLOT(writeFromModelToDb()));
 
     this->csvToDbFlag = true;
     this->modelIsEmpty = true;
@@ -169,8 +170,8 @@ void MainWindow::readToModel()
 {
     if (!this->csvToDbFlag)
         model.readFromDbToModel();
-    //else
-        //model.readFromCsvToModel();
+    else
+        model.readFromCsvToModel();
 
     modelIsEmpty = false;
     emit validInput(true);
