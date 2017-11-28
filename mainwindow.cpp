@@ -44,8 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->selectFromFileButton, SIGNAL(clicked()), this, SLOT(selectFromFileButtonClicked()));
     connect(ui->selectToFileButton, SIGNAL(clicked()), this, SLOT(selectToFileButtonClicked()));
 
-    connect(ui->editFromTableName, SIGNAL(editingFinished()), this, SLOT(editFromTableNameEditingFinished()));
+    connect(ui->chooseFromTableName,SIGNAL(currentIndexChanged(int)),this,SLOT(currentTableNameChanged()));
     connect(ui->editToTableName, SIGNAL(editingFinished()), this, SLOT(editToTableNameEditingFinished()));
+
+
     connect(ui->transformButton, SIGNAL(clicked()), this ,SLOT(transformButtonClicked()));
 }
 
@@ -57,7 +59,7 @@ MainWindow::~MainWindow()
 void MainWindow::setVisibleFromTableName(bool flag)
 {
     ui->selectFromTableLable->setVisible(flag);
-    ui->editFromTableName->setVisible(flag);
+    ui->chooseFromTableName->setVisible(flag);
 }
 
 void MainWindow::setVisibleToTableName(bool flag)
@@ -100,7 +102,7 @@ void MainWindow::selectFromFileButtonClicked()
     {
         dbName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
         ui->fileFromLabel->setText( QFileInfo(dbName).fileName());
-        ui->editFromTableName->clear();
+        ui->chooseFromTableName->clear();
 
         if (dbName != "")
             setVisibleFromTableName(true);
@@ -108,6 +110,9 @@ void MainWindow::selectFromFileButtonClicked()
             setVisibleFromTableName(false);
 
         emit newDb(dbName);
+
+        ui->chooseFromTableName->addItems(this->model.readListOfTables());
+
     }
 }
 
@@ -134,17 +139,17 @@ void MainWindow::selectToFileButtonClicked()
     }
 }
 
-void MainWindow::editFromTableNameEditingFinished()
-{
-    tableName = ui->editFromTableName->text();
-    emit newTable(tableName);
-}
-
 void MainWindow::editToTableNameEditingFinished()
 {
     tableName = ui->editToTableName->text();
     emit newTable(tableName);
 }
+
+void MainWindow::currentTableNameChanged(){
+    tableName = ui->chooseFromTableName->currentText();
+    emit newTable(tableName);
+}
+
 
 void MainWindow::clearInput(){
     setVisibleFromTableName(false);
@@ -152,7 +157,7 @@ void MainWindow::clearInput(){
 
     ui->fileFromLabel->clear();
     ui->fileToLabel->clear();
-    ui->editFromTableName->clear();
+    ui->chooseFromTableName->clear();
     ui->editToTableName->clear();
 
     this->csvName = "";

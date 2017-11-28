@@ -1,6 +1,3 @@
-#include <QtSql>
-#include <QSqlRecord>
-#include <QFile>
 #include "converter.h"
 
 

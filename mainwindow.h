@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QLabel>
+#include <QComboBox>
 
 namespace Ui {
 class MainWindow;
@@ -37,8 +38,8 @@ private slots:
     void selectFromFileButtonClicked();
     void selectToFileButtonClicked();
 
-    void editFromTableNameEditingFinished();
     void editToTableNameEditingFinished();
+    void currentTableNameChanged();
 
     void readToModel();
 
@@ -70,6 +71,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     ConverterModel model;
+    void readListOfTables();
 };
 
 #endif // MAINWINDOW_H
