@@ -59,7 +59,7 @@ public slots:
     // QAbstractItemModel interface
 public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
+    QStringList getColumnsType();
 };
 
 #endif // CONVERTER_H

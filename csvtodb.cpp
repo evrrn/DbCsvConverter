@@ -38,6 +38,7 @@ bool ConverterModel::readFromCsvToModel()
     int step = 0;
 
     QTextStream out(&csvfile);
+    emit beginResetModel();
     while(!out.atEnd())
     {
         QString line(out.readLine().simplified());
@@ -69,15 +70,11 @@ bool ConverterModel::readFromCsvToModel()
 
                 if (step != 0)
                 {
-                    emit beginInsertRows(QModelIndex(), 0, 0);
                     rows << temp;
-                    emit endInsertRows();
                 }
                 else
                 {
-                    emit beginInsertColumns(QModelIndex(), 0, temp.size()-1);
                     header = temp;
-                    emit endInsertColumns();
                 }
 
                 temp.clear();
@@ -86,8 +83,56 @@ bool ConverterModel::readFromCsvToModel()
         }
         step++;
     }
+    emit endResetModel();
     return 0;
 }
+
+QStringList ConverterModel::getColumnsType(){
+    bool intFlag = true;
+    bool doubleFlag = true;
+    QStringList resultTypes;
+    for(int i = 0; i < rows[0].size(); i++)
+    {
+        for(int j = 0; j < rows.size(); j++)
+        {
+            QString tempRec = rows[j][i];
+            if(doubleFlag)
+            {
+                tempRec.toDouble(&doubleFlag);
+                if (tempRec.indexOf(".") != -1)
+                {
+                    intFlag = !doubleFlag;
+                }
+            }
+            if(intFlag)
+            {
+                tempRec.toInt(&intFlag);
+            }
+            if(!intFlag && !doubleFlag)
+            {
+                resultTypes.push_back("TEXT");
+                break;
+            }
+        }
+
+        if(intFlag)
+        {
+            resultTypes.push_back("INTEGER");
+        }
+        else
+        {
+            if(doubleFlag)
+            {
+                resultTypes.push_back("REAL");
+            }
+        }
+
+        intFlag = false;
+        doubleFlag = false;
+    }
+    return resultTypes;
+}
+
 
 bool ConverterModel::writeFromModelToDb()
 {
@@ -105,7 +150,10 @@ bool ConverterModel::writeFromModelToDb()
         output << "Ошибка: " + sdb.lastError().text();
         return 1;
     }
-
+    //type of columns QList<QStringList> rows;
+    QStringList columnsType = this->getColumnsType();
+    //---
+    QSqlDatabase::database().transaction();
     QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
     querydrop->exec();
 
@@ -113,7 +161,7 @@ bool ConverterModel::writeFromModelToDb()
 
     for(int i = 0; i < header.count(); i++)
     {
-        qtodb += header[i] + " TEXT";
+        qtodb += header[i] + " " + columnsType[i];//" TEXT";
         if(i != header.count() - 1)
         {
             qtodb += ", ";
@@ -156,7 +204,9 @@ bool ConverterModel::writeFromModelToDb()
         if(!f)
         {
             output<<"Не удалось выполнить команду";
+            QSqlDatabase::database().rollback();
         }
     }
+    QSqlDatabase::database().commit();
     return 0;
 }

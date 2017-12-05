@@ -8,6 +8,7 @@
 #include <QString>
 #include <QLabel>
 #include <QComboBox>
+#include <QStatusBar>
 
 namespace Ui {
 class MainWindow;
@@ -72,6 +73,8 @@ private:
     Ui::MainWindow *ui;
     ConverterModel model;
     void readListOfTables();
+    void createStatusBar();
 };
+
 
 #endif // MAINWINDOW_H

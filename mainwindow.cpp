@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tableView->setModel(&model);
-
+    this->createStatusBar();
     connect(this, SIGNAL(newDb(QString)), &model, SLOT(setDbName(QString)));
     connect(this, SIGNAL(newTable(QString)), &model, SLOT(setTableName(QString)));
     connect(this, SIGNAL(newCsv(QString)), &model, SLOT(setCsvName(QString)));
@@ -188,6 +188,7 @@ void MainWindow::transformButtonClicked()
         emit transformToDb();
     else
         emit transformToCsv();
+    statusBar()->showMessage(tr("Success!"));
 }
 
 void MainWindow::enableTransformButton(bool enable)
@@ -233,3 +234,7 @@ void MainWindow::checkDb()
         emit notNullOutput(dbName != "" && tableName != "");
 }
 
+void MainWindow::createStatusBar()
+{
+    statusBar()->showMessage(tr("Ready"));
+}
