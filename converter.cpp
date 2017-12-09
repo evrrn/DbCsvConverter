@@ -2,7 +2,6 @@
 
 ConverterModel::ConverterModel(QObject *parent): QAbstractTableModel(parent)
 {
-
 }
 
 int ConverterModel::rowCount(const QModelIndex &parent) const

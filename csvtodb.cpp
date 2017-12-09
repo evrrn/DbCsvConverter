@@ -84,6 +84,9 @@ bool ConverterModel::readFromCsvToModel()
         step++;
     }
     emit endResetModel();
+    output << "Файл " + csvname + " успешно считан";
+
+    csvfile.close();
     return 0;
 }
 
@@ -150,10 +153,11 @@ bool ConverterModel::writeFromModelToDb()
         output << "Ошибка: " + sdb.lastError().text();
         return 1;
     }
-    //type of columns QList<QStringList> rows;
+
     QStringList columnsType = this->getColumnsType();
-    //---
+
     QSqlDatabase::database().transaction();
+
     QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
     querydrop->exec();
 
@@ -203,10 +207,14 @@ bool ConverterModel::writeFromModelToDb()
         bool f = query->exec();
         if(!f)
         {
-            output<<"Не удалось выполнить команду";
+            output << "Не удалось выполнить команду: " + tempString;
             QSqlDatabase::database().rollback();
+            return 1;
         }
     }
+
+    output << "Таблица " + tname + " в базе данных " + dbname + " успешно записана";
     QSqlDatabase::database().commit();
+    sdb.close();
     return 0;
 }

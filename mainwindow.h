@@ -55,6 +55,8 @@ private slots:
     void checkDb();
     void checkCsv();
 
+    void changeLog();
+
 signals:
     void newCsv(QString);
     void newDb(QString);
@@ -68,6 +70,8 @@ signals:
 
     void notNullInput(bool);
     void notNullOutput(bool);
+
+    void newLog();
 
 private:
     Ui::MainWindow *ui;

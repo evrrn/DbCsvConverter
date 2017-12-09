@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tableView->setModel(&model);
+
     this->createStatusBar();
     connect(this, SIGNAL(newDb(QString)), &model, SLOT(setDbName(QString)));
     connect(this, SIGNAL(newTable(QString)), &model, SLOT(setTableName(QString)));
@@ -29,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
     connect(this, SIGNAL(transformToDb()), &model, SLOT(writeFromModelToDb()));
 
+    connect(this, SIGNAL(newLog()), this, SLOT(changeLog()));
+
     this->csvToDbFlag = true;
     this->modelIsEmpty = true;
 
@@ -47,8 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->chooseFromTableName,SIGNAL(currentIndexChanged(int)),this,SLOT(currentTableNameChanged()));
     connect(ui->editToTableName, SIGNAL(editingFinished()), this, SLOT(editToTableNameEditingFinished()));
 
-
     connect(ui->transformButton, SIGNAL(clicked()), this ,SLOT(transformButtonClicked()));
+
+    this->model.output<<"Start application";
+    emit newLog();
 }
 
 MainWindow::~MainWindow()
@@ -180,6 +185,7 @@ void MainWindow::readToModel()
 
     modelIsEmpty = false;
     emit validInput(true);
+    emit newLog();
 }
 
 void MainWindow::transformButtonClicked()
@@ -188,6 +194,7 @@ void MainWindow::transformButtonClicked()
         emit transformToDb();
     else
         emit transformToCsv();
+    emit newLog();
     statusBar()->showMessage(tr("Success!"));
 }
 
@@ -237,4 +244,9 @@ void MainWindow::checkDb()
 void MainWindow::createStatusBar()
 {
     statusBar()->showMessage(tr("Ready"));
+}
+
+void MainWindow::changeLog(){
+    ui->listWidget->clear();
+    ui->listWidget->addItems(model.output);
 }
