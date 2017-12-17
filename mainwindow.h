@@ -59,14 +59,11 @@ private slots:
     void editToTableNameEditingFinished();
     void currentTableNameChanged();
 
-    void readToModel();
-
-    void enableLoadDataButton(bool enable);
-    void enableTransformButton(bool enable);
-
+    void readToModel(bool notNull);
     void transformButtonClicked();
 
     void clearInput();
+
     void inputOutputValidator();
 
     void checkDb();
@@ -93,6 +90,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     ConverterModel model;
+
     void readListOfTables();
 };
 

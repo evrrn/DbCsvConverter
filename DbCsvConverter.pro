@@ -24,7 +24,7 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         converter.cpp \
         dbtocsv.cpp \
-    csvtodb.cpp
+        csvtodb.cpp
 
 HEADERS += mainwindow.h \
         converter.h \
