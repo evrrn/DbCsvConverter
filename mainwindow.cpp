@@ -31,8 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->csvToDbFlag = true;
     this->modelIsEmpty = true;
 
-    ui->loadDataButton->setEnabled(false);
-
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
 
@@ -174,16 +172,19 @@ void MainWindow::clearInput(){
     model.clearTable();
 }
 
-void MainWindow::readToModel()
+void MainWindow::readToModel(bool notNull)
 {
-    if (this->csvToDbFlag)
-        model.readFromCsvToModel();
-    else
-        model.readFromDbToModel();
+    if (notNull)
+    {
+        if (this->csvToDbFlag)
+            model.readFromCsvToModel();
+        else
+            model.readFromDbToModel();
 
-    modelIsEmpty = false;
-    emit validInput(true);
-    emit newLog();
+        modelIsEmpty = false;
+        emit validInput(true);
+        emit newLog();
+    }
 }
 
 void MainWindow::transformButtonClicked()

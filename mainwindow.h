@@ -60,6 +60,8 @@ private slots:
     void currentTableNameChanged();
 
     void readToModel(bool notNull);
+
+    void enableTransformButton(bool enable);
     void transformButtonClicked();
 
     void clearInput();
