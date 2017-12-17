@@ -92,6 +92,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     ConverterModel model;
+    
     void readListOfTables();
 };
 
