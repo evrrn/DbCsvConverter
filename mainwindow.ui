@@ -112,6 +112,13 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QPushButton" name="loadDataButton">
+          <property name="text">
+           <string>Load data</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>

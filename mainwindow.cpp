@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(newTable(QString)), &model, SLOT(setTableName(QString)));
     connect(this, SIGNAL(newCsv(QString)), &model, SLOT(setCsvName(QString)));
 
-    connect(this, SIGNAL(notNullInput(bool)), this, SLOT(readToModel(bool)));
+    connect(this, SIGNAL(notNullInput(bool)), this, SLOT(enableLoadDataButton(bool)));
 
     connect(this, SIGNAL(validInput(bool)), this, SLOT(inputOutputValidator()));
     connect(this, SIGNAL(notNullOutput(bool)), this, SLOT(inputOutputValidator()));
@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(validData(bool)), this, SLOT(enableTransformButton(bool)));
 
+    connect(ui->loadDataButton, SIGNAL(clicked(bool)), this, SLOT(readToModel()));
     connect(this, SIGNAL(transformToCsv()), &model, SLOT(writeFromModelToCsv()));
     connect(this, SIGNAL(transformToDb()), &model, SLOT(writeFromModelToDb()));
 
@@ -34,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->modelIsEmpty = true;
 
     ui->transformButton->setEnabled(false);
+    ui->loadDataButton->setEnabled(false);
 
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
@@ -49,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->transformButton, SIGNAL(clicked()), this ,SLOT(transformButtonClicked()));
 
-    this->model.output<<"Приложение запущено";
+    this->model.output<<"Start application";
     emit newLog();
 }
 
@@ -100,7 +102,6 @@ void MainWindow::selectFromFileButtonClicked()
         ui->fileFromLabel->setText(QFileInfo(csvName).fileName());
         emit newCsv(csvName);
     }
-
     else
     {
         dbName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "");
@@ -114,8 +115,8 @@ void MainWindow::selectFromFileButtonClicked()
 
         emit newDb(dbName);
 
-        ui->chooseFromTableName->addItem("");
         ui->chooseFromTableName->addItems(this->model.readListOfTables());
+
     }
 }
 
@@ -134,7 +135,6 @@ void MainWindow::selectToFileButtonClicked()
 
         emit newDb(dbName);
     }
-
     else
     {
         csvName = QFileDialog::getSaveFileName(0, "Open Dialog", "");
@@ -153,6 +153,7 @@ void MainWindow::currentTableNameChanged(){
     tableName = ui->chooseFromTableName->currentText();
     emit newTable(tableName);
 }
+
 
 void MainWindow::clearInput(){
     setVisibleFromTableName(false);
@@ -174,19 +175,16 @@ void MainWindow::clearInput(){
     model.clearTable();
 }
 
-void MainWindow::readToModel(bool notNull)
+void MainWindow::readToModel()
 {
-    if (notNull)
-    {
-        if (this->csvToDbFlag)
-            model.readFromCsvToModel();
-        else
-            model.readFromDbToModel();
+    if (!this->csvToDbFlag)
+        model.readFromDbToModel();
+    else
+        model.readFromCsvToModel();
 
-        modelIsEmpty = false;
-        emit validInput(true);
-        emit newLog();
-    }
+    modelIsEmpty = false;
+    emit validInput(true);
+    emit newLog();
 }
 
 void MainWindow::transformButtonClicked()
@@ -195,13 +193,17 @@ void MainWindow::transformButtonClicked()
         emit transformToDb();
     else
         emit transformToCsv();
-
     emit newLog();
 }
 
 void MainWindow::enableTransformButton(bool enable)
 {
     ui->transformButton->setEnabled(enable);
+}
+
+void MainWindow::enableLoadDataButton(bool enable)
+{
+    ui->loadDataButton->setEnabled(enable);
 }
 
 void MainWindow::inputOutputValidator()
@@ -213,34 +215,31 @@ void MainWindow::checkCsv()
 {
     if (this->csvToDbFlag)
     {
+        emit notNullInput(csvName != "");
+
         modelIsEmpty = true;
         model.clearTable();
         emit validInput(false);
-
-        emit notNullInput(csvName != "");
     }
-
     else
-        emit notNullOutput(csvName != "");
+        emit notNullOutput(csvName != "");;
 }
 
 void MainWindow::checkDb()
 {
     if (!this->csvToDbFlag)
     {
+        emit notNullInput(dbName != "" && tableName != "");
+
         modelIsEmpty = true;
         model.clearTable();
         emit validInput(false);
-
-        emit notNullInput(dbName != "" && tableName != "");
     }
-
     else
         emit notNullOutput(dbName != "" && tableName != "");
 }
 
-void MainWindow::changeLog()
-{
+void MainWindow::changeLog(){
     ui->logList->clear();
     ui->logList->addItems(model.output);
 }

@@ -59,13 +59,14 @@ private slots:
     void editToTableNameEditingFinished();
     void currentTableNameChanged();
 
-    void readToModel(bool notNull);
+    void readToModel();
 
+    void enableLoadDataButton(bool enable);
     void enableTransformButton(bool enable);
+
     void transformButtonClicked();
 
     void clearInput();
-
     void inputOutputValidator();
 
     void checkDb();
