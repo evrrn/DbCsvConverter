@@ -57,7 +57,8 @@ public:
      * @return Список типов в контейнере QStringList
      */
     QStringList getColumnsType();
-private slots:
+    const bool operator==(const ConverterModel *model1);
+public slots:
     void setDbName(QString name)
     {
         dbname = name;
