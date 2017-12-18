@@ -114,7 +114,7 @@ void MainWindow::selectFromFileButtonClicked()
             setVisibleFromTableName(false);
 
         emit newDb(dbName);
-
+        ui->chooseFromTableName->addItem("");
         ui->chooseFromTableName->addItems(this->model.readListOfTables());
 
     }
