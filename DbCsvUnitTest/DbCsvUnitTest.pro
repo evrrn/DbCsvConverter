@@ -15,5 +15,12 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += tst_dbcsv.cpp
+SOURCES += tst_dbcsv.cpp \
+        ../converter.cpp \
+        ../dbtocsv.cpp \
+        ../csvtodb.cpp
+
+HEADERS += ../converter.h
+
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
