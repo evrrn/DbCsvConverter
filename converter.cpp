@@ -74,7 +74,7 @@ QStringList ConverterModel::readListOfTables()
 }
 
 const bool ConverterModel::operator==(const ConverterModel *model){
-    if (dbname!=model->dbname || csvname!=model->csvname || tname!=model->tname)
+    if (tname!=model->tname)
         return false;
     if (header!=model->header)
         return false;
