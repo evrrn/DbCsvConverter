@@ -42,7 +42,9 @@ QVariant ConverterModel::headerData(int section, Qt::Orientation orientation, in
     {
         if (orientation == Qt::Horizontal)
         {
-            if (section < header.size()) return header[section];
+            if (section < header.size())
+                return header[section];
+
             else return "";
         }
     }

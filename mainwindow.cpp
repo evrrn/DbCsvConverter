@@ -112,7 +112,6 @@ void MainWindow::selectFromFileButtonClicked()
 
         ui->chooseFromTableName->addItem("");
         ui->chooseFromTableName->addItems(this->model.readListOfTables());
-
     }
 }
 
