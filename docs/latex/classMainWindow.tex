@@ -1,0 +1,97 @@
+\hypertarget{classMainWindow}{}\section{Main\+Window Class Reference}
+\label{classMainWindow}\index{Main\+Window@{Main\+Window}}
+
+
+Inheritance diagram for Main\+Window\+:
+% FIG 0
+
+
+Collaboration diagram for Main\+Window\+:
+% FIG 1
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries new\+Csv} (Q\+String)\hypertarget{classMainWindow_a823f31cb3270f356399925f6ee47cd89}{}\label{classMainWindow_a823f31cb3270f356399925f6ee47cd89}
+
+\item 
+void {\bfseries new\+Db} (Q\+String)\hypertarget{classMainWindow_a845f4e124f1ae1b66656e7aa198a992f}{}\label{classMainWindow_a845f4e124f1ae1b66656e7aa198a992f}
+
+\item 
+void {\bfseries new\+Table} (Q\+String)\hypertarget{classMainWindow_a6c723f132c2164cca8bf645caf5a3ac8}{}\label{classMainWindow_a6c723f132c2164cca8bf645caf5a3ac8}
+
+\item 
+void {\bfseries transform\+To\+Db} ()\hypertarget{classMainWindow_a3542656fa1260d0126771196850bc17f}{}\label{classMainWindow_a3542656fa1260d0126771196850bc17f}
+
+\item 
+void {\bfseries transform\+To\+Csv} ()\hypertarget{classMainWindow_aebb3ca9ec051976ac50b204713891a3e}{}\label{classMainWindow_aebb3ca9ec051976ac50b204713891a3e}
+
+\item 
+void {\bfseries valid\+Data} (bool)\hypertarget{classMainWindow_a2e41db7441bcafe45bdcd87d7587bdb6}{}\label{classMainWindow_a2e41db7441bcafe45bdcd87d7587bdb6}
+
+\item 
+void {\bfseries valid\+Input} (bool)\hypertarget{classMainWindow_a70f88f13a9bbf25ff16433288d0ce8ba}{}\label{classMainWindow_a70f88f13a9bbf25ff16433288d0ce8ba}
+
+\item 
+void {\bfseries not\+Null\+Input} (bool)\hypertarget{classMainWindow_ad79aea62d4d201444b9d484792d98805}{}\label{classMainWindow_ad79aea62d4d201444b9d484792d98805}
+
+\item 
+void {\bfseries not\+Null\+Output} (bool)\hypertarget{classMainWindow_a38e491b469e21b9d0dfd784d9ee952be}{}\label{classMainWindow_a38e491b469e21b9d0dfd784d9ee952be}
+
+\item 
+void {\bfseries new\+Log} ()\hypertarget{classMainWindow_a81dfc661231c2c2fa7625c8baf52c13a}{}\label{classMainWindow_a81dfc661231c2c2fa7625c8baf52c13a}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMainWindow_a996c5a2b6f77944776856f08ec30858d}{Main\+Window} (Q\+Widget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор главного окна программы \end{DoxyCompactList}\item 
+void {\bfseries set\+Visible\+From\+Table\+Name} (bool flag)\hypertarget{classMainWindow_a42fd12fde514f164b342cea6d1cfa12e}{}\label{classMainWindow_a42fd12fde514f164b342cea6d1cfa12e}
+
+\item 
+void {\bfseries set\+Visible\+To\+Table\+Name} (bool flag)\hypertarget{classMainWindow_a898343a7d9131a68c2def020b76f3dd1}{}\label{classMainWindow_a898343a7d9131a68c2def020b76f3dd1}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classMainWindow_a0c0162314418399bd62caeb93cd75850}{csv\+To\+Db\+Flag}\hypertarget{classMainWindow_a0c0162314418399bd62caeb93cd75850}{}\label{classMainWindow_a0c0162314418399bd62caeb93cd75850}
+
+\begin{DoxyCompactList}\small\item\em csv\+To\+Db\+Flag -\/ Флаг, определяющий вид преобразования \end{DoxyCompactList}\item 
+bool \hyperlink{classMainWindow_a8c53a3130d4c777634c39a85bd7787f0}{model\+Is\+Empty}\hypertarget{classMainWindow_a8c53a3130d4c777634c39a85bd7787f0}{}\label{classMainWindow_a8c53a3130d4c777634c39a85bd7787f0}
+
+\begin{DoxyCompactList}\small\item\em model\+Is\+Empty -\/ Флаг, показывающий, заполнена ли модель данными для текущего преобразования \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classMainWindow_aed5e8f03fc9a624e6d7869e0cb49ef94}{csv\+Name}\hypertarget{classMainWindow_aed5e8f03fc9a624e6d7869e0cb49ef94}{}\label{classMainWindow_aed5e8f03fc9a624e6d7869e0cb49ef94}
+
+\begin{DoxyCompactList}\small\item\em csv\+Name -\/ Имя C\+S\+V-\/файла \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classMainWindow_a5d38adc978b0e5b357ef202595bdde59}{db\+Name}\hypertarget{classMainWindow_a5d38adc978b0e5b357ef202595bdde59}{}\label{classMainWindow_a5d38adc978b0e5b357ef202595bdde59}
+
+\begin{DoxyCompactList}\small\item\em db\+Name -\/ Имя базы данных \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classMainWindow_a706ef39943c2f4115bcc5c348270c7fe}{table\+Name}\hypertarget{classMainWindow_a706ef39943c2f4115bcc5c348270c7fe}{}\label{classMainWindow_a706ef39943c2f4115bcc5c348270c7fe}
+
+\begin{DoxyCompactList}\small\item\em table\+Name -\/ Имя таблицы \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection[{\texorpdfstring{Main\+Window(\+Q\+Widget $\ast$parent=nullptr)}{MainWindow(QWidget *parent=nullptr)}}]{\setlength{\rightskip}{0pt plus 5cm}Main\+Window\+::\+Main\+Window (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\hypertarget{classMainWindow_a996c5a2b6f77944776856f08ec30858d}{}\label{classMainWindow_a996c5a2b6f77944776856f08ec30858d}
+
+
+Конструктор главного окна программы 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ Виджет родитель \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mainwindow.\+h\item 
+mainwindow.\+cpp\end{DoxyCompactItemize}
