@@ -30,7 +30,6 @@ bool ConverterModel::readFromCsvToModel()
     }
 
     clearTable();
-
     QChar _separator = ',';
     bool Quote = false;
     QStringList temp;
@@ -102,8 +101,8 @@ QStringList ConverterModel::getColumnsType()
             QString tempRec = rows[j][i];
             if(doubleFlag)
             {
-                tempRec.toDouble(&doubleFlag);
-                if (tempRec.indexOf(".") != -1)
+                (tempRec.replace(",",".")).toDouble(&doubleFlag);
+                if (tempRec.indexOf(".") != -1 && !intFlag)
                 {
                     intFlag = !doubleFlag;
                 }
@@ -131,8 +130,8 @@ QStringList ConverterModel::getColumnsType()
             }
         }
 
-        intFlag = false;
-        doubleFlag = false;
+        intFlag = true;
+        doubleFlag = true;
     }
     return resultTypes;
 }

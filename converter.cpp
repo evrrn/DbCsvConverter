@@ -74,3 +74,13 @@ QStringList ConverterModel::readListOfTables()
 
     return sdb.tables();
 }
+
+const bool ConverterModel::operator==(const ConverterModel *model){
+    if (tname!=model->tname)
+        return false;
+    if (header!=model->header)
+        return false;
+    if (rows!=model->rows)
+        return false;
+    return true;
+}

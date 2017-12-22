@@ -81,7 +81,7 @@ public:
      */
     QStringList getColumnsType();
 
-private slots:
+public slots:
 
     /**
      * @brief Сеттер для имени базы данных
@@ -120,7 +120,10 @@ private slots:
         tname = "";
     }
 
-public slots:
+    /**
+     * @brief Перегруженный оператор сравнения моделей на равенство
+     */
+    const bool operator==(const ConverterModel *model1);
 
     /**
      * @brief Чтение таблицы из базы данных в модель

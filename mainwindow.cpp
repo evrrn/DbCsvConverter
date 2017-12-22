@@ -236,7 +236,8 @@ void MainWindow::checkDb()
         emit notNullOutput(dbName != "" && tableName != "");
 }
 
-void MainWindow::changeLog(){
+void MainWindow::changeLog()
+{
     ui->logList->clear();
     ui->logList->addItems(model.output);
 }
