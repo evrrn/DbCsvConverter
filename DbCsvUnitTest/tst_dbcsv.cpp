@@ -1,4 +1,4 @@
-#include <QString>
+﻿#include <QString>
 #include <QDir>
 #include <QtTest>
 #include <QtTest/QtTest>
@@ -31,15 +31,18 @@ private Q_SLOTS:
 DbCsvUnitTest::DbCsvUnitTest()
 {
 }
+
 DbCsvUnitTest::~DbCsvUnitTest()
 {
 }
 
-bool dbComparison(QString db1, QString db2){
+bool dbComparison(QString db1, QString db2)
+{
     if (!QFile::exists(db1))
     {
        return false;
     }
+
     if (!QFile::exists(db2))
     {
        return false;

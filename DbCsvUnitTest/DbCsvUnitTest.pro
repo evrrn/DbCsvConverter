@@ -5,10 +5,9 @@
 #-------------------------------------------------
 
 QT       += sql testlib
-
 QT       -= gui
 
-TARGET = tst_dbcsv
+TARGET  = tst_dbcsv
 CONFIG   += console
 CONFIG   -= app_bundle
 
