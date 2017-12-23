@@ -64,11 +64,6 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
     /**
-     * @brief Очистка данных модели
-     */
-    void clearTable();
-
-    /**
      * @brief Чтение списка таблиц из базы данных
      * @return Список таблиц в контейнере QStringList
      */
@@ -80,6 +75,26 @@ public:
      * @return Список типов в контейнере QStringList
      */
     QStringList getColumnsType();
+
+    /**
+     * @brief Очищает имя базы данных, CSV-файла и таблицы
+     */
+    void clearNames()
+    {
+        dbname = "";
+        csvname = "";
+        tname = "";
+    }
+
+    /**
+     * @brief Очистка данных модели
+     */
+    void clearTable();
+
+    /**
+     * @brief Перегруженный оператор сравнения моделей на равенство
+     */
+    const bool operator==(const ConverterModel *model1);
 
 public slots:
 
@@ -109,21 +124,6 @@ public slots:
     {
         tname = name;
     }
-
-    /**
-     * @brief Очищает имя базы данных, CSV-файла и таблицы
-     */
-    void clearNames()
-    {
-        dbname = "";
-        csvname = "";
-        tname = "";
-    }
-
-    /**
-     * @brief Перегруженный оператор сравнения моделей на равенство
-     */
-    const bool operator==(const ConverterModel *model1);
 
     /**
      * @brief Чтение таблицы из базы данных в модель
