@@ -12,13 +12,10 @@ class DbCsvUnitTest : public QObject
 public:
     DbCsvUnitTest();
     ~DbCsvUnitTest();
+    ConverterModel testModel;
+    ConverterModel originalModel;
 
 private Q_SLOTS:
-    //void initTestCase();
-    //void cleanupTestCase();
-    //void init();
-    //void cleanup();
-
     //void readFromDbToModelTest();
     //void writeFromModelToCsvTest();
 
@@ -44,14 +41,14 @@ bool dbComparison(QString db1, QString db2){
     {
        return false;
     }
-
+    QSqlDatabase::removeDatabase("fstConnection");
     QSqlDatabase sdb1 = QSqlDatabase::addDatabase("QSQLITE", "fstConnection");
     sdb1.setDatabaseName(db1);
     if (!sdb1.open())
     {
         return false;
     }
-
+    QSqlDatabase::removeDatabase("sndConnection");
     QSqlDatabase sdb2 = QSqlDatabase::addDatabase("QSQLITE","sndConnection");
     sdb2.setDatabaseName(db2);
     if (!sdb2.open())
@@ -109,88 +106,74 @@ bool dbComparison(QString db1, QString db2){
 
 void DbCsvUnitTest::readFromCsvToModelTest()
 {
-    ConverterModel *testModel = new ConverterModel();
-    ConverterModel *originalModel = new ConverterModel();
-    //Заполнение тестируемых данных
-    //testModel->setDbName("../DbCsvUnitTest/OriginalFiles/DbTest");
-    testModel->setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
-    //testModel->setTableName("TableTest");
-    //Заполнение результрующих данных
-    //OriginalModel->setDbName("../DbCsvUnitTest/ResultFiles/DbTest_tested");
-    //OriginalModel->setCsvName("../DbCsvUnitTest/ResultFiles/CsvTest.csv");
-    //OriginalModel->setTableName("TableTest");
-    originalModel->header<<"IntCol"<<"RealCol"<<"TextCol";
-    originalModel->rows<<(QStringList()<<"1"<<"4"<<"IN,SH;as\\HmvV");
-    originalModel->rows<<(QStringList()<<"2"<<"7"<<"XstKj/vhvod");
-    originalModel->rows<<(QStringList()<<"3"<<"3,5"<<"Qk kX|uNVaH");
-    originalModel->rows<<(QStringList()<<"4"<<"5"<<"OuTXo^EW»SxJ");
-    originalModel->rows<<(QStringList()<<"5"<<"7,3"<<"VShM copp");
-    testModel->readFromCsvToModel();
-    QVERIFY(testModel->operator==(originalModel));
+    testModel.setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
+
+    originalModel.header<<"IntCol"<<"RealCol"<<"TextCol";
+    originalModel.rows<<(QStringList()<<"1"<<"4"<<"IN,SH;as\\HmvV");
+    originalModel.rows<<(QStringList()<<"2"<<"7"<<"XstKj/vhvod");
+    originalModel.rows<<(QStringList()<<"3"<<"3,5"<<"Qk kX|uNVaH");
+    originalModel.rows<<(QStringList()<<"4"<<"5"<<"OuTXo^EW»SxJ");
+    originalModel.rows<<(QStringList()<<"5"<<"7,3"<<"VShM copp");
+
+    testModel.readFromCsvToModel();
+
+    QVERIFY(testModel.operator==(&originalModel));
+    testModel.clearTable();
+    originalModel.clearTable();
 }
 
 void DbCsvUnitTest::writeFromModelToDb()
 {
-    ConverterModel *testModel = new ConverterModel();
-    ConverterModel *originalModel = new ConverterModel();
+    testModel.setDbName("../DbCsvUnitTest/ResultFiles/DbTest_tested");
+    testModel.setTableName("TableTest");
+    testModel.header<<"IntCol"<<"RealCol"<<"TextCol";
+    testModel.rows<<(QStringList()<<"1"<<"4"<<"IN,SH;as\\HmvV");
+    testModel.rows<<(QStringList()<<"2"<<"7"<<"XstKj/vhvod");
+    testModel.rows<<(QStringList()<<"3"<<"3,5"<<"Qk kX|uNVaH");
+    testModel.rows<<(QStringList()<<"4"<<"5"<<"OuTXo^EW»SxJ");
+    testModel.rows<<(QStringList()<<"5"<<"7,3"<<"VShM copp");
+    testModel.writeFromModelToDb();
 
-    testModel->setDbName("../DbCsvUnitTest/ResultFiles/DbTest_tested");
-    //testModel->setCsvName("../DbCsvUnitTest/ResultFiles/CsvTest.csv");
-    testModel->setTableName("TableTest");
-
-    testModel->header<<"IntCol"<<"RealCol"<<"TextCol";
-    testModel->rows<<(QStringList()<<"1"<<"4"<<"IN,SH;as\\HmvV");
-    testModel->rows<<(QStringList()<<"2"<<"7"<<"XstKj/vhvod");
-    testModel->rows<<(QStringList()<<"3"<<"3,5"<<"Qk kX|uNVaH");
-    testModel->rows<<(QStringList()<<"4"<<"5"<<"OuTXo^EW»SxJ");
-    testModel->rows<<(QStringList()<<"5"<<"7,3"<<"VShM copp");
-    testModel->writeFromModelToDb();
-    originalModel->setDbName("../DbCsvUnitTest/OriginalFiles/DbTest");
-    //originalModel->setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
-    originalModel->setTableName("TableTest");
-    //originalModel->readFromDbToModel();
-    //QVERIFY(testModel->operator==(originalModel));
+    originalModel.setDbName("../DbCsvUnitTest/OriginalFiles/DbTest");
+    originalModel.setTableName("TableTest");
+    //QVERIFY(testModel.operator==(originalModel));
     QString DbTest_tested("../DbCsvUnitTest/ResultFiles/DbTest_tested"), DbTest("../DbCsvUnitTest/OriginalFiles/DbTest");
     QVERIFY(dbComparison(DbTest_tested, DbTest));
+    testModel.clearTable();
+    originalModel.clearTable();
 }
 
 void DbCsvUnitTest::csvToDb(){
-    ConverterModel *testModel = new ConverterModel();
-    ConverterModel *originalModel = new ConverterModel();
+    testModel.setDbName("../DbCsvUnitTest/ResultFiles/DbTest_tested");
+    testModel.setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
+    testModel.setTableName("TableTest");
+    testModel.readFromCsvToModel();
+    testModel.writeFromModelToDb();
 
-    testModel->setDbName("../DbCsvUnitTest/ResultFiles/DbTest_tested");
-    testModel->setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
-    testModel->setTableName("TableTest");
-
-    testModel->readFromCsvToModel();
-    testModel->writeFromModelToDb();
-
-    originalModel->setDbName("../DbCsvUnitTest/OriginalFiles/DbTest");
-    //originalModel->setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
-    originalModel->setTableName("TableTest");
-    //originalModel->readFromDbToModel();
-    //QVERIFY(testModel->operator==(originalModel));
+    originalModel.setDbName("../DbCsvUnitTest/OriginalFiles/DbTest");
+    originalModel.setTableName("TableTest");
+    //QVERIFY(testModel.operator==(originalModel));
     QString DbTest_tested("../DbCsvUnitTest/ResultFiles/DbTest_tested"), DbTest("../DbCsvUnitTest/OriginalFiles/DbTest");
     QVERIFY(dbComparison(DbTest_tested, DbTest));
+    testModel.clearTable();
+    originalModel.clearTable();
 }
 
 void DbCsvUnitTest::csvToDbAndBack(){
-    ConverterModel *testModel = new ConverterModel();
-    QDir dir;
     QString DbTest, CsvTest, CsvResult;
     DbTest = "../DbCsvUnitTest/ResultFiles/DbTest_tested";
-    testModel->setDbName( DbTest);
+    testModel.setDbName( DbTest);
     CsvTest = "../DbCsvUnitTest/OriginalFiles/CsvTest.csv";
-    testModel->setCsvName(CsvTest);
-    testModel->setTableName("TableTest");
+    testModel.setCsvName(CsvTest);
+    testModel.setTableName("TableTest");
 
-    testModel->readFromCsvToModel();
-    testModel->writeFromModelToDb();
-    CsvResult = "../DbCsvUnitTest/OriginalFiles/CsvTest_tested.csv";
-    testModel->csvname = CsvResult;
+    testModel.readFromCsvToModel();
+    testModel.writeFromModelToDb();
+    CsvResult = "../DbCsvUnitTest/ResultFiles/CsvTest_tested.csv";
+    testModel.csvname = CsvResult;
 
-    testModel->readFromDbToModel();
-    testModel->writeFromModelToCsv();
+    testModel.readFromDbToModel();
+    testModel.writeFromModelToCsv();
 
     QCryptographicHash hash1( QCryptographicHash::Sha1 );
     QCryptographicHash hash2( QCryptographicHash::Sha1 );
@@ -199,16 +182,18 @@ void DbCsvUnitTest::csvToDbAndBack(){
     if ( file1.open( QIODevice::ReadOnly ) ) {
         hash1.addData( file1.readAll() );
     } else {
-        // Handle "cannot open file" error
+        QVERIFY(0);
     }
     if ( file2.open( QIODevice::ReadOnly ) ) {
         hash2.addData( file2.readAll() );
     } else {
-        // Handle "cannot open file" error
+        QVERIFY(0);
     }
     QByteArray sig1 = hash1.result();
     QByteArray sig2 = hash2.result();
     QVERIFY(sig1 == sig2);
+    testModel.clearTable();
+    originalModel.clearTable();
 }
 
 QTEST_APPLESS_MAIN(DbCsvUnitTest)
