@@ -143,8 +143,8 @@ bool ConverterModel::writeFromModelToDb()
        output << "Не существует базы данных " + dbname;
        return 1;
     }
-
-    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase::removeDatabase("db");
+    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE","db");
     sdb.setDatabaseName(dbname);
 
     if (!sdb.open())
