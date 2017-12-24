@@ -14,6 +14,7 @@ public:
     ~DbCsvUnitTest();
     ConverterModel testModel;
     ConverterModel originalModel;
+    void dropTable(QString dbname, QString tname);
 
 private Q_SLOTS:
     //void readFromDbToModelTest();
@@ -104,6 +105,18 @@ bool dbComparison(QString db1, QString db2){
     return true;
 }
 
+void DbCsvUnitTest::dropTable(QString dbname, QString tname){
+    QSqlDatabase::removeDatabase("dropTable");
+    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE","dropTable");
+    sdb.setDatabaseName(dbname);
+    if (!sdb.open()){
+        return;
+    }
+
+    QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
+    querydrop->exec();
+}
+
 void DbCsvUnitTest::readFromCsvToModelTest()
 {
     testModel.setCsvName("../DbCsvUnitTest/OriginalFiles/CsvTest.csv");
@@ -154,9 +167,14 @@ void DbCsvUnitTest::csvToDb(){
     originalModel.setTableName("TableTest");
     //QVERIFY(testModel.operator==(originalModel));
     QString DbTest_tested("../DbCsvUnitTest/ResultFiles/DbTest_tested"), DbTest("../DbCsvUnitTest/OriginalFiles/DbTest");
-    QVERIFY(dbComparison(DbTest_tested, DbTest));
+
+    bool result = dbComparison(DbTest_tested, DbTest);
+
     testModel.clearTable();
     originalModel.clearTable();
+    dropTable(DbTest_tested, "TableTest");
+
+    QVERIFY(result);
 }
 
 void DbCsvUnitTest::csvToDbAndBack(){
@@ -191,9 +209,14 @@ void DbCsvUnitTest::csvToDbAndBack(){
     }
     QByteArray sig1 = hash1.result();
     QByteArray sig2 = hash2.result();
-    QVERIFY(sig1 == sig2);
+
     testModel.clearTable();
     originalModel.clearTable();
+    QFile::setPermissions(CsvResult, QFile::ReadOwner | QFile::WriteOwner);
+    QFile::remove(CsvResult);
+    dropTable(DbTest, "TableTest");
+    QVERIFY(sig1 == sig2);
+    //
 }
 
 QTEST_APPLESS_MAIN(DbCsvUnitTest)
