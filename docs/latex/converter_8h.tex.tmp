@@ -1,0 +1,27 @@
+\hypertarget{converter_8h}{}\section{converter.\+h File Reference}
+\label{converter_8h}\index{converter.\+h@{converter.\+h}}
+
+
+Заголовочный файл с описанием класса \hyperlink{classConverterModel}{Converter\+Model}.  
+
+
+{\ttfamily \#include $<$Q\+Abstract\+Table\+Model$>$}\\*
+{\ttfamily \#include $<$Q\+List$>$}\\*
+{\ttfamily \#include $<$Qt\+Sql$>$}\\*
+{\ttfamily \#include $<$Q\+Sql\+Record$>$}\\*
+{\ttfamily \#include $<$Q\+File$>$}\\*
+Include dependency graph for converter.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classConverterModel}{Converter\+Model}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Заголовочный файл с описанием класса \hyperlink{classConverterModel}{Converter\+Model}. 
+
+Данный файл содержит в себе описание полей и функций класса \hyperlink{classConverterModel}{Converter\+Model}, который считывает, хранит и записывает данные, поступающие в виде таблицы либо C\+S\+V-\/файла 

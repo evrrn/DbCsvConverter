@@ -19,28 +19,34 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
     /**
      * @brief Конструктор главного окна программы
      * @param parent - Виджет родитель
      */
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
     /**
      * @brief csvToDbFlag - Флаг, определяющий вид преобразования
      */
     bool csvToDbFlag;
+
     /**
-     * @brief modelIsEmpty
+     * @brief modelIsEmpty - Флаг, показывающий, заполнена ли модель данными для текущего преобразования
      */
     bool modelIsEmpty;
+
     /**
      * @brief csvName - Имя CSV-файла
      */
     QString csvName;
+
     /**
      * @brief dbName - Имя базы данных
      */
     QString dbName;
+
     /**
      * @brief tableName - Имя таблицы
      */
@@ -59,14 +65,13 @@ private slots:
     void editToTableNameEditingFinished();
     void currentTableNameChanged();
 
-    void readToModel();
+    void readToModel(bool notNull);
 
-    void enableLoadDataButton(bool enable);
     void enableTransformButton(bool enable);
-
     void transformButtonClicked();
 
     void clearInput();
+
     void inputOutputValidator();
 
     void checkDb();
@@ -93,6 +98,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     ConverterModel model;
+
     void readListOfTables();
 };
 

@@ -5,15 +5,16 @@
 #-------------------------------------------------
 
 QT       += sql testlib
-
 QT       -= gui
 
-TARGET = tst_dbcsv
+TARGET   = tst_dbcsv
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+CONFIG+=c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += tst_dbcsv.cpp \
         ../converter.cpp \

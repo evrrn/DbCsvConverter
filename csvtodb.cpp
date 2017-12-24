@@ -1,4 +1,4 @@
-#include "converter.h"
+﻿#include "converter.h"
 
 
 QString trimCSV(QString item)
@@ -89,7 +89,8 @@ bool ConverterModel::readFromCsvToModel()
     return 0;
 }
 
-QStringList ConverterModel::getColumnsType(){
+QStringList ConverterModel::getColumnsType()
+{
     bool intFlag = true;
     bool doubleFlag = true;
     QStringList resultTypes;

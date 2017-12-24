@@ -1,0 +1,261 @@
+\hypertarget{classConverterModel}{}\section{Converter\+Model Class Reference}
+\label{classConverterModel}\index{Converter\+Model@{Converter\+Model}}
+
+
+Inheritance diagram for Converter\+Model\+:
+% FIG 0
+
+
+Collaboration diagram for Converter\+Model\+:
+% FIG 1
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classConverterModel_adae17a2e7799838bd628fac1b4f4b287}{read\+From\+Db\+To\+Model} ()
+\begin{DoxyCompactList}\small\item\em Чтение таблицы из базы данных в модель \end{DoxyCompactList}\item 
+bool \hyperlink{classConverterModel_a3fee672474b8e81f16f9b368c84fc10a}{write\+From\+Model\+To\+Csv} ()
+\begin{DoxyCompactList}\small\item\em Запись данных из модели в C\+S\+V-\/файл \end{DoxyCompactList}\item 
+bool \hyperlink{classConverterModel_ae872c32e1f477e31c484ecb9a85cafbb}{read\+From\+Csv\+To\+Model} ()
+\begin{DoxyCompactList}\small\item\em Чтение данных из C\+S\+V-\/файла в модель \end{DoxyCompactList}\item 
+bool \hyperlink{classConverterModel_a7bc6ea1e321ad26171f24874e5e42717}{write\+From\+Model\+To\+Db} ()
+\begin{DoxyCompactList}\small\item\em Запись таблицы из модели в базу данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classConverterModel_a03f3ce07fd6ab7c689ed79ff68008562}{Converter\+Model} (Q\+Object $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Конструктор по умолчанию \end{DoxyCompactList}\item 
+virtual int \hyperlink{classConverterModel_a503b63db81bbc9f61fbdb4d042a9940b}{row\+Count} (const Q\+Model\+Index \&parent) const override
+\begin{DoxyCompactList}\small\item\em Возвращает количество записей в модели \end{DoxyCompactList}\item 
+virtual int \hyperlink{classConverterModel_ac86fe308aa90013c5b1ba3609efd2319}{column\+Count} (const Q\+Model\+Index \&parent) const override
+\begin{DoxyCompactList}\small\item\em Возвращает количество столбцов в модели \end{DoxyCompactList}\item 
+virtual Q\+Variant \hyperlink{classConverterModel_ac7293b25f07dc831e22fb830074b5625}{data} (const Q\+Model\+Index \&index, int role) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента модели \end{DoxyCompactList}\item 
+void \hyperlink{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{clear\+Table} ()\hypertarget{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{}\label{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}
+
+\begin{DoxyCompactList}\small\item\em Очистка данных модели \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classConverterModel_a7eb359fd8866173131a7dc3b40ba9d8d}{read\+List\+Of\+Tables} ()
+\begin{DoxyCompactList}\small\item\em Чтение списка таблиц из базы данных \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classConverterModel_a3f16894425efdf6c2b484c6cbd199ee7}{get\+Columns\+Type} ()
+\begin{DoxyCompactList}\small\item\em Получение типов столбцов \end{DoxyCompactList}\item 
+Q\+Variant \hyperlink{classConverterModel_a91ac4f80ed87ada3b70a14752699cb0c}{header\+Data} (int section, Qt\+::\+Orientation orientation, int role) const override
+\begin{DoxyCompactList}\small\item\em Возвращает название стоблца модели по номеру \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{classConverterModel_ab75f6b2e5a474bbe7fcbf9e59622b361}{dbname}\hypertarget{classConverterModel_ab75f6b2e5a474bbe7fcbf9e59622b361}{}\label{classConverterModel_ab75f6b2e5a474bbe7fcbf9e59622b361}
+
+\begin{DoxyCompactList}\small\item\em Строковые параметры, хранящие имя базы данных, C\+S\+V-\/файла и таблицы соответственно \end{DoxyCompactList}\item 
+Q\+String {\bfseries csvname}\hypertarget{classConverterModel_ab4dce94d79d91c492b001ef7bcca5ba8}{}\label{classConverterModel_ab4dce94d79d91c492b001ef7bcca5ba8}
+
+\item 
+Q\+String {\bfseries tname}\hypertarget{classConverterModel_a4b13b3ea842605312eac9c09812344c4}{}\label{classConverterModel_a4b13b3ea842605312eac9c09812344c4}
+
+\item 
+Q\+List$<$ Q\+String\+List $>$ \hyperlink{classConverterModel_a7841c23fa3fa3f96743c4e4e21b56aaa}{rows}\hypertarget{classConverterModel_a7841c23fa3fa3f96743c4e4e21b56aaa}{}\label{classConverterModel_a7841c23fa3fa3f96743c4e4e21b56aaa}
+
+\begin{DoxyCompactList}\small\item\em Список списков строк, элементами которого являются ячейки входной таблицы или C\+S\+V-\/файла \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classConverterModel_a0f16570da8c0cf58d6ad6bc8c981c1d9}{header}\hypertarget{classConverterModel_a0f16570da8c0cf58d6ad6bc8c981c1d9}{}\label{classConverterModel_a0f16570da8c0cf58d6ad6bc8c981c1d9}
+
+\begin{DoxyCompactList}\small\item\em Список строк, элементы которого представляют собой названия столбцов входной таблицы или C\+S\+V-\/файла \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classConverterModel_a03a814b195196ac9a897f708b2f55e0a}{output}\hypertarget{classConverterModel_a03a814b195196ac9a897f708b2f55e0a}{}\label{classConverterModel_a03a814b195196ac9a897f708b2f55e0a}
+
+\begin{DoxyCompactList}\small\item\em Список строк, хранящий информационные сообщения за все время работы приложения \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Converter\+Model@{Converter\+Model}!Converter\+Model@{Converter\+Model}}
+\index{Converter\+Model@{Converter\+Model}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{Converter\+Model(\+Q\+Object $\ast$parent=0)}{ConverterModel(QObject *parent=0)}}]{\setlength{\rightskip}{0pt plus 5cm}Converter\+Model\+::\+Converter\+Model (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\hypertarget{classConverterModel_a03f3ce07fd6ab7c689ed79ff68008562}{}\label{classConverterModel_a03f3ce07fd6ab7c689ed79ff68008562}
+
+
+Конструктор по умолчанию 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ Объект-\/родитель \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Converter\+Model@{Converter\+Model}!column\+Count@{column\+Count}}
+\index{column\+Count@{column\+Count}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{column\+Count(const Q\+Model\+Index \&parent) const override}{columnCount(const QModelIndex &parent) const override}}]{\setlength{\rightskip}{0pt plus 5cm}int Converter\+Model\+::column\+Count (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{parent}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classConverterModel_ac86fe308aa90013c5b1ba3609efd2319}{}\label{classConverterModel_ac86fe308aa90013c5b1ba3609efd2319}
+
+
+Возвращает количество столбцов в модели 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ Индекс модели \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Количество столбцов либо 0, если родитель не пуст или записей нет 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!data@{data}}
+\index{data@{data}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{data(const Q\+Model\+Index \&index, int role) const override}{data(const QModelIndex &index, int role) const override}}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Variant Converter\+Model\+::data (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{index, }
+\item[{int}]{role}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classConverterModel_ac7293b25f07dc831e22fb830074b5625}{}\label{classConverterModel_ac7293b25f07dc831e22fb830074b5625}
+
+
+Возвращает значение элемента модели 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ Индекс элемента \\
+\hline
+{\em role} & -\/ Роль элемента \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Значение элемента с данным индексом, либо Q\+Variant, если индекс невалиден или роль элемента отлична от Qt\+::\+Display\+Role 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!get\+Columns\+Type@{get\+Columns\+Type}}
+\index{get\+Columns\+Type@{get\+Columns\+Type}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{get\+Columns\+Type()}{getColumnsType()}}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String\+List Converter\+Model\+::get\+Columns\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classConverterModel_a3f16894425efdf6c2b484c6cbd199ee7}{}\label{classConverterModel_a3f16894425efdf6c2b484c6cbd199ee7}
+
+
+Получение типов столбцов 
+
+Получение типов столбцов по считанным из C\+S\+V-\/файла данным для построения таблицы в базе данных \begin{DoxyReturn}{Returns}
+Список типов в контейнере Q\+String\+List 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!header\+Data@{header\+Data}}
+\index{header\+Data@{header\+Data}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{header\+Data(int section, Qt\+::\+Orientation orientation, int role) const override}{headerData(int section, Qt::Orientation orientation, int role) const override}}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Variant Converter\+Model\+::header\+Data (
+\begin{DoxyParamCaption}
+\item[{int}]{section, }
+\item[{Qt\+::\+Orientation}]{orientation, }
+\item[{int}]{role}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}}\hypertarget{classConverterModel_a91ac4f80ed87ada3b70a14752699cb0c}{}\label{classConverterModel_a91ac4f80ed87ada3b70a14752699cb0c}
+
+
+Возвращает название стоблца модели по номеру 
+
+
+\begin{DoxyParams}{Parameters}
+{\em section} & -\/ Номер столбца \\
+\hline
+{\em orientation} & -\/ Направление заголовка \\
+\hline
+{\em role} & -\/ Роль элемента \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Название стоблца модели по данному номеру, либо пустую строку, если номер выходит за границы заголовка 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!read\+From\+Csv\+To\+Model@{read\+From\+Csv\+To\+Model}}
+\index{read\+From\+Csv\+To\+Model@{read\+From\+Csv\+To\+Model}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{read\+From\+Csv\+To\+Model}{readFromCsvToModel}}]{\setlength{\rightskip}{0pt plus 5cm}bool Converter\+Model\+::read\+From\+Csv\+To\+Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classConverterModel_ae872c32e1f477e31c484ecb9a85cafbb}{}\label{classConverterModel_ae872c32e1f477e31c484ecb9a85cafbb}
+
+
+Чтение данных из C\+S\+V-\/файла в модель 
+
+\begin{DoxyReturn}{Returns}
+0 -\/ если чтение прошло успешно, 1 -\/ если произошла ошибка 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!read\+From\+Db\+To\+Model@{read\+From\+Db\+To\+Model}}
+\index{read\+From\+Db\+To\+Model@{read\+From\+Db\+To\+Model}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{read\+From\+Db\+To\+Model}{readFromDbToModel}}]{\setlength{\rightskip}{0pt plus 5cm}bool Converter\+Model\+::read\+From\+Db\+To\+Model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classConverterModel_adae17a2e7799838bd628fac1b4f4b287}{}\label{classConverterModel_adae17a2e7799838bd628fac1b4f4b287}
+
+
+Чтение таблицы из базы данных в модель 
+
+\begin{DoxyReturn}{Returns}
+0 -\/ если чтение прошло успешно, 1 -\/ если произошла ошибка 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!read\+List\+Of\+Tables@{read\+List\+Of\+Tables}}
+\index{read\+List\+Of\+Tables@{read\+List\+Of\+Tables}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{read\+List\+Of\+Tables()}{readListOfTables()}}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String\+List Converter\+Model\+::read\+List\+Of\+Tables (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classConverterModel_a7eb359fd8866173131a7dc3b40ba9d8d}{}\label{classConverterModel_a7eb359fd8866173131a7dc3b40ba9d8d}
+
+
+Чтение списка таблиц из базы данных 
+
+\begin{DoxyReturn}{Returns}
+Список таблиц в контейнере Q\+String\+List 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!row\+Count@{row\+Count}}
+\index{row\+Count@{row\+Count}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{row\+Count(const Q\+Model\+Index \&parent) const override}{rowCount(const QModelIndex &parent) const override}}]{\setlength{\rightskip}{0pt plus 5cm}int Converter\+Model\+::row\+Count (
+\begin{DoxyParamCaption}
+\item[{const Q\+Model\+Index \&}]{parent}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classConverterModel_a503b63db81bbc9f61fbdb4d042a9940b}{}\label{classConverterModel_a503b63db81bbc9f61fbdb4d042a9940b}
+
+
+Возвращает количество записей в модели 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ Индекс модели \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Количество записей либо 0, если родитель не пуст 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!write\+From\+Model\+To\+Csv@{write\+From\+Model\+To\+Csv}}
+\index{write\+From\+Model\+To\+Csv@{write\+From\+Model\+To\+Csv}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{write\+From\+Model\+To\+Csv}{writeFromModelToCsv}}]{\setlength{\rightskip}{0pt plus 5cm}bool Converter\+Model\+::write\+From\+Model\+To\+Csv (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classConverterModel_a3fee672474b8e81f16f9b368c84fc10a}{}\label{classConverterModel_a3fee672474b8e81f16f9b368c84fc10a}
+
+
+Запись данных из модели в C\+S\+V-\/файл 
+
+\begin{DoxyReturn}{Returns}
+0 -\/ если запись прошла успешно, 1 -\/ если произошла ошибка 
+\end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!write\+From\+Model\+To\+Db@{write\+From\+Model\+To\+Db}}
+\index{write\+From\+Model\+To\+Db@{write\+From\+Model\+To\+Db}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{write\+From\+Model\+To\+Db}{writeFromModelToDb}}]{\setlength{\rightskip}{0pt plus 5cm}bool Converter\+Model\+::write\+From\+Model\+To\+Db (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\hypertarget{classConverterModel_a7bc6ea1e321ad26171f24874e5e42717}{}\label{classConverterModel_a7bc6ea1e321ad26171f24874e5e42717}
+
+
+Запись таблицы из модели в базу данных 
+
+\begin{DoxyReturn}{Returns}
+0 -\/ если запись прошла успешно, 1 -\/ если произошла ошибка 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{converter_8h}{converter.\+h}\item 
+converter.\+cpp\item 
+csvtodb.\+cpp\item 
+dbtocsv.\+cpp\end{DoxyCompactItemize}

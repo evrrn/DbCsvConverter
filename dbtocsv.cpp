@@ -2,7 +2,21 @@
 
 QByteArray getElementForCsv(QVariant elem)
 {
-    return "\"" + elem.toByteArray() + "\"";
+    QByteArray str = elem.toByteArray();
+
+    if (str.contains('\"'))
+    {
+        int i = 0;
+
+        while (i < str.length())
+            if (str[i++] == '\"')
+                str.insert(i++, '\"');
+    }
+
+    if (str.contains(',') || str.contains(';') || str.contains('\n'))
+        return '\"' + str + '\"';
+
+    return str;
 }
 
 bool ConverterModel::readFromDbToModel()
@@ -77,7 +91,7 @@ bool ConverterModel::writeFromModelToCsv()
     {
         csvfile.write(getElementForCsv(headerData(j, Qt::Horizontal, Qt::DisplayRole)));
         if (j + 1 != columns)
-            csvfile.write(", ");
+            csvfile.write(",");
     }
     csvfile.write("\n");
 
@@ -87,7 +101,7 @@ bool ConverterModel::writeFromModelToCsv()
         {
             csvfile.write(getElementForCsv(data(index(i, j, QModelIndex()), Qt::DisplayRole)));
             if (j + 1 != columns)
-                csvfile.write(", ");
+                csvfile.write(",");
         }
         csvfile.write("\n");
     }
