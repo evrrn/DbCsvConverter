@@ -106,6 +106,15 @@ Collaboration diagram for ConverterModel:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
+<tr class="memitem:ad8aa3557fda91e3452359372d506b38c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#ad8aa3557fda91e3452359372d506b38c">setDbName</a> (QString name)</td></tr>
+<tr class="memdesc:ad8aa3557fda91e3452359372d506b38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сеттер для имени базы данных  <a href="#ad8aa3557fda91e3452359372d506b38c">More...</a><br /></td></tr>
+<tr class="separator:ad8aa3557fda91e3452359372d506b38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa020aa032cf174958691167be32ef98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#afa020aa032cf174958691167be32ef98">setCsvName</a> (QString name)</td></tr>
+<tr class="memdesc:afa020aa032cf174958691167be32ef98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сеттер для имени CSV-файла  <a href="#afa020aa032cf174958691167be32ef98">More...</a><br /></td></tr>
+<tr class="separator:afa020aa032cf174958691167be32ef98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c8232c02f131deb44ddacc9f80d313"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#ad4c8232c02f131deb44ddacc9f80d313">setTableName</a> (QString name)</td></tr>
+<tr class="memdesc:ad4c8232c02f131deb44ddacc9f80d313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сеттер для имени таблицы  <a href="#ad4c8232c02f131deb44ddacc9f80d313">More...</a><br /></td></tr>
+<tr class="separator:ad4c8232c02f131deb44ddacc9f80d313"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adae17a2e7799838bd628fac1b4f4b287"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#adae17a2e7799838bd628fac1b4f4b287">readFromDbToModel</a> ()</td></tr>
 <tr class="memdesc:adae17a2e7799838bd628fac1b4f4b287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение таблицы из базы данных в модель  <a href="#adae17a2e7799838bd628fac1b4f4b287">More...</a><br /></td></tr>
 <tr class="separator:adae17a2e7799838bd628fac1b4f4b287"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,16 +142,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac7293b25f07dc831e22fb830074b5625"><td class="memItemLeft" align="right" valign="top">virtual QVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#ac7293b25f07dc831e22fb830074b5625">data</a> (const QModelIndex &amp;index, int role) const override</td></tr>
 <tr class="memdesc:ac7293b25f07dc831e22fb830074b5625"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает значение элемента модели  <a href="#ac7293b25f07dc831e22fb830074b5625">More...</a><br /></td></tr>
 <tr class="separator:ac7293b25f07dc831e22fb830074b5625"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85d10deabb8e07ff372be441cdca45e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85d10deabb8e07ff372be441cdca45e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a85d10deabb8e07ff372be441cdca45e0">clearTable</a> ()</td></tr>
-<tr class="memdesc:a85d10deabb8e07ff372be441cdca45e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка данных модели <br /></td></tr>
-<tr class="separator:a85d10deabb8e07ff372be441cdca45e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb359fd8866173131a7dc3b40ba9d8d"><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a7eb359fd8866173131a7dc3b40ba9d8d">readListOfTables</a> ()</td></tr>
 <tr class="memdesc:a7eb359fd8866173131a7dc3b40ba9d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение списка таблиц из базы данных  <a href="#a7eb359fd8866173131a7dc3b40ba9d8d">More...</a><br /></td></tr>
 <tr class="separator:a7eb359fd8866173131a7dc3b40ba9d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f16894425efdf6c2b484c6cbd199ee7"><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a3f16894425efdf6c2b484c6cbd199ee7">getColumnsType</a> ()</td></tr>
 <tr class="memdesc:a3f16894425efdf6c2b484c6cbd199ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение типов столбцов  <a href="#a3f16894425efdf6c2b484c6cbd199ee7">More...</a><br /></td></tr>
 <tr class="separator:a3f16894425efdf6c2b484c6cbd199ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7a00de16ef1c854e89a722edeab9421"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7a00de16ef1c854e89a722edeab9421"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#ae7a00de16ef1c854e89a722edeab9421">clearNames</a> ()</td></tr>
+<tr class="memdesc:ae7a00de16ef1c854e89a722edeab9421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очищает имя базы данных, CSV-файла и таблицы <br /></td></tr>
+<tr class="separator:ae7a00de16ef1c854e89a722edeab9421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85d10deabb8e07ff372be441cdca45e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85d10deabb8e07ff372be441cdca45e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a85d10deabb8e07ff372be441cdca45e0">clearTable</a> ()</td></tr>
+<tr class="memdesc:a85d10deabb8e07ff372be441cdca45e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка данных модели <br /></td></tr>
+<tr class="separator:a85d10deabb8e07ff372be441cdca45e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9646314f29ab36a3fe0b15edb543374d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9646314f29ab36a3fe0b15edb543374d"></a>
+const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a9646314f29ab36a3fe0b15edb543374d">operator==</a> (const <a class="el" href="classConverterModel.html">ConverterModel</a> *model1)</td></tr>
+<tr class="memdesc:a9646314f29ab36a3fe0b15edb543374d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Перегруженный оператор сравнения моделей на равенство <br /></td></tr>
+<tr class="separator:a9646314f29ab36a3fe0b15edb543374d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91ac4f80ed87ada3b70a14752699cb0c"><td class="memItemLeft" align="right" valign="top">QVariant&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConverterModel.html#a91ac4f80ed87ada3b70a14752699cb0c">headerData</a> (int section, Qt::Orientation orientation, int role) const override</td></tr>
 <tr class="memdesc:a91ac4f80ed87ada3b70a14752699cb0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает название стоблца модели по номеру  <a href="#a91ac4f80ed87ada3b70a14752699cb0c">More...</a><br /></td></tr>
 <tr class="separator:a91ac4f80ed87ada3b70a14752699cb0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -444,6 +461,102 @@ QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Количество записей либо 0, если родитель не пуст </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa020aa032cf174958691167be32ef98"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConverterModel::setCsvName </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сеттер для имени CSV-файла </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>- Присваиваемое имя CSV-файла </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad8aa3557fda91e3452359372d506b38c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConverterModel::setDbName </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сеттер для имени базы данных </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>- Присваиваемое имя базы данных </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad4c8232c02f131deb44ddacc9f80d313"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConverterModel::setTableName </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сеттер для имени таблицы </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>- Присваиваемое имя таблицы </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

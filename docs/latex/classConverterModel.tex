@@ -11,6 +11,12 @@ Collaboration diagram for Converter\+Model\+:
 \subsection*{Public Slots}
 \begin{DoxyCompactItemize}
 \item 
+void \hyperlink{classConverterModel_ad8aa3557fda91e3452359372d506b38c}{set\+Db\+Name} (Q\+String name)
+\begin{DoxyCompactList}\small\item\em Сеттер для имени базы данных \end{DoxyCompactList}\item 
+void \hyperlink{classConverterModel_afa020aa032cf174958691167be32ef98}{set\+Csv\+Name} (Q\+String name)
+\begin{DoxyCompactList}\small\item\em Сеттер для имени C\+S\+V-\/файла \end{DoxyCompactList}\item 
+void \hyperlink{classConverterModel_ad4c8232c02f131deb44ddacc9f80d313}{set\+Table\+Name} (Q\+String name)
+\begin{DoxyCompactList}\small\item\em Сеттер для имени таблицы \end{DoxyCompactList}\item 
 bool \hyperlink{classConverterModel_adae17a2e7799838bd628fac1b4f4b287}{read\+From\+Db\+To\+Model} ()
 \begin{DoxyCompactList}\small\item\em Чтение таблицы из базы данных в модель \end{DoxyCompactList}\item 
 bool \hyperlink{classConverterModel_a3fee672474b8e81f16f9b368c84fc10a}{write\+From\+Model\+To\+Csv} ()
@@ -30,13 +36,19 @@ virtual int \hyperlink{classConverterModel_ac86fe308aa90013c5b1ba3609efd2319}{co
 \begin{DoxyCompactList}\small\item\em Возвращает количество столбцов в модели \end{DoxyCompactList}\item 
 virtual Q\+Variant \hyperlink{classConverterModel_ac7293b25f07dc831e22fb830074b5625}{data} (const Q\+Model\+Index \&index, int role) const override
 \begin{DoxyCompactList}\small\item\em Возвращает значение элемента модели \end{DoxyCompactList}\item 
-void \hyperlink{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{clear\+Table} ()\hypertarget{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{}\label{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}
-
-\begin{DoxyCompactList}\small\item\em Очистка данных модели \end{DoxyCompactList}\item 
 Q\+String\+List \hyperlink{classConverterModel_a7eb359fd8866173131a7dc3b40ba9d8d}{read\+List\+Of\+Tables} ()
 \begin{DoxyCompactList}\small\item\em Чтение списка таблиц из базы данных \end{DoxyCompactList}\item 
 Q\+String\+List \hyperlink{classConverterModel_a3f16894425efdf6c2b484c6cbd199ee7}{get\+Columns\+Type} ()
 \begin{DoxyCompactList}\small\item\em Получение типов столбцов \end{DoxyCompactList}\item 
+void \hyperlink{classConverterModel_ae7a00de16ef1c854e89a722edeab9421}{clear\+Names} ()\hypertarget{classConverterModel_ae7a00de16ef1c854e89a722edeab9421}{}\label{classConverterModel_ae7a00de16ef1c854e89a722edeab9421}
+
+\begin{DoxyCompactList}\small\item\em Очищает имя базы данных, C\+S\+V-\/файла и таблицы \end{DoxyCompactList}\item 
+void \hyperlink{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{clear\+Table} ()\hypertarget{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}{}\label{classConverterModel_a85d10deabb8e07ff372be441cdca45e0}
+
+\begin{DoxyCompactList}\small\item\em Очистка данных модели \end{DoxyCompactList}\item 
+const bool \hyperlink{classConverterModel_a9646314f29ab36a3fe0b15edb543374d}{operator==} (const \hyperlink{classConverterModel}{Converter\+Model} $\ast$model1)\hypertarget{classConverterModel_a9646314f29ab36a3fe0b15edb543374d}{}\label{classConverterModel_a9646314f29ab36a3fe0b15edb543374d}
+
+\begin{DoxyCompactList}\small\item\em Перегруженный оператор сравнения моделей на равенство \end{DoxyCompactList}\item 
 Q\+Variant \hyperlink{classConverterModel_a91ac4f80ed87ada3b70a14752699cb0c}{header\+Data} (int section, Qt\+::\+Orientation orientation, int role) const override
 \begin{DoxyCompactList}\small\item\em Возвращает название стоблца модели по номеру \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
@@ -223,6 +235,54 @@ Q\+String\+List \hyperlink{classConverterModel_a03a814b195196ac9a897f708b2f55e0a
 \begin{DoxyReturn}{Returns}
 Количество записей либо 0, если родитель не пуст 
 \end{DoxyReturn}
+\index{Converter\+Model@{Converter\+Model}!set\+Csv\+Name@{set\+Csv\+Name}}
+\index{set\+Csv\+Name@{set\+Csv\+Name}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{set\+Csv\+Name}{setCsvName}}]{\setlength{\rightskip}{0pt plus 5cm}void Converter\+Model\+::set\+Csv\+Name (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [slot]}}\hypertarget{classConverterModel_afa020aa032cf174958691167be32ef98}{}\label{classConverterModel_afa020aa032cf174958691167be32ef98}
+
+
+Сеттер для имени C\+S\+V-\/файла 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ Присваиваемое имя C\+S\+V-\/файла \\
+\hline
+\end{DoxyParams}
+\index{Converter\+Model@{Converter\+Model}!set\+Db\+Name@{set\+Db\+Name}}
+\index{set\+Db\+Name@{set\+Db\+Name}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{set\+Db\+Name}{setDbName}}]{\setlength{\rightskip}{0pt plus 5cm}void Converter\+Model\+::set\+Db\+Name (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [slot]}}\hypertarget{classConverterModel_ad8aa3557fda91e3452359372d506b38c}{}\label{classConverterModel_ad8aa3557fda91e3452359372d506b38c}
+
+
+Сеттер для имени базы данных 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ Присваиваемое имя базы данных \\
+\hline
+\end{DoxyParams}
+\index{Converter\+Model@{Converter\+Model}!set\+Table\+Name@{set\+Table\+Name}}
+\index{set\+Table\+Name@{set\+Table\+Name}!Converter\+Model@{Converter\+Model}}
+\subsubsection[{\texorpdfstring{set\+Table\+Name}{setTableName}}]{\setlength{\rightskip}{0pt plus 5cm}void Converter\+Model\+::set\+Table\+Name (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [slot]}}\hypertarget{classConverterModel_ad4c8232c02f131deb44ddacc9f80d313}{}\label{classConverterModel_ad4c8232c02f131deb44ddacc9f80d313}
+
+
+Сеттер для имени таблицы 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ Присваиваемое имя таблицы \\
+\hline
+\end{DoxyParams}
 \index{Converter\+Model@{Converter\+Model}!write\+From\+Model\+To\+Csv@{write\+From\+Model\+To\+Csv}}
 \index{write\+From\+Model\+To\+Csv@{write\+From\+Model\+To\+Csv}!Converter\+Model@{Converter\+Model}}
 \subsubsection[{\texorpdfstring{write\+From\+Model\+To\+Csv}{writeFromModelToCsv}}]{\setlength{\rightskip}{0pt plus 5cm}bool Converter\+Model\+::write\+From\+Model\+To\+Csv (

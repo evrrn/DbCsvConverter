@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['writefrommodeltocsv',['writeFromModelToCsv',['../classConverterModel.html#a3fee672474b8e81f16f9b368c84fc10a',1,'ConverterModel']]],
-  ['writefrommodeltodb',['writeFromModelToDb',['../classConverterModel.html#a7bc6ea1e321ad26171f24874e5e42717',1,'ConverterModel']]]
+  ['readfromcsvtomodel',['readFromCsvToModel',['../classConverterModel.html#ae872c32e1f477e31c484ecb9a85cafbb',1,'ConverterModel']]],
+  ['readfromdbtomodel',['readFromDbToModel',['../classConverterModel.html#adae17a2e7799838bd628fac1b4f4b287',1,'ConverterModel']]],
+  ['readlistoftables',['readListOfTables',['../classConverterModel.html#a7eb359fd8866173131a7dc3b40ba9d8d',1,'ConverterModel']]],
+  ['rowcount',['rowCount',['../classConverterModel.html#a503b63db81bbc9f61fbdb4d042a9940b',1,'ConverterModel']]]
 ];
