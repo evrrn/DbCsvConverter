@@ -1,0 +1,8 @@
+Static:
+$ cppcheck -q -j4 DbCsvConverter/ 
+$
+$ cppcheck -q -j4 --enable=performance,portability,warning,style DbCsvConverter/ 
+$
+
+Dynamic:
+

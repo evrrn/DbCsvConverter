@@ -39,7 +39,7 @@ public:
      * @brief Конструктор по умолчанию
      * @param parent - Объект-родитель
      */
-    ConverterModel(QObject *parent = 0);
+    explicit ConverterModel(QObject *parent = 0);
 
     /**
      * @brief Возвращает количество записей в модели
