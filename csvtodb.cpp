@@ -158,8 +158,8 @@ bool ConverterModel::writeFromModelToDb()
 
     QSqlDatabase::database().transaction();
 
-    QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
-    querydrop->exec();
+    QSqlQuery querydrop("DROP TABLE " + tname, sdb);
+    querydrop.exec();
 
     QString qtodb = "CREATE TABLE " + tname + " (";
 
@@ -174,8 +174,8 @@ bool ConverterModel::writeFromModelToDb()
             qtodb += ")";
     }
 
-    QSqlQuery *query = new QSqlQuery(qtodb, sdb);
-    query->exec();
+    QSqlQuery query(qtodb, sdb);
+    query.exec();
 
     qtodb = "INSERT INTO " + tname + " (";
     for(int i = 0; i < header.count(); i++)
@@ -203,8 +203,8 @@ bool ConverterModel::writeFromModelToDb()
                 tempString += ")";
         }
 
-        query->prepare(tempString);
-        bool f = query->exec();
+        query.prepare(tempString);
+        bool f = query.exec();
         if(!f)
         {
             output << "Не удалось выполнить команду: " + tempString;
