@@ -118,8 +118,8 @@ void DbCsvUnitTest::dropTable(QString dbname, QString tname)
     if (!sdb.open())
         return;
 
-    QSqlQuery *querydrop = new QSqlQuery("DROP TABLE " + tname, sdb);
-    querydrop->exec();
+    QSqlQuery querydrop("DROP TABLE " + tname, sdb);
+    querydrop.exec();
 }
 
 void DbCsvUnitTest::clearModels()

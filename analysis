@@ -5,4 +5,12 @@ $ cppcheck -q -j4 --enable=performance,portability,warning,style DbCsvConverter/
 $
 
 Dynamic:
+78 (32 direct, 46 indirect) bytes in 1 blocks are definitely lost in loss record 8,030 of 12,110
+  в MainWindow::MainWindow(QWidget*) в /home/evrin/DbCsvConverter/mainwindow.cpp:10
+  1: operator new(unsigned long) в /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+  2: 0x119bc434
+  3: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.5.1
+  4: Ui_MainWindow::setupUi(QMainWindow*) в /home/evrin/build-DbCsvConverter-Desktop-Debug/ui_mainwindow.h:224
+  5: MainWindow::MainWindow(QWidget*) в /home/evrin/DbCsvConverter/mainwindow.cpp:10
+  6: main в /home/evrin/DbCsvConverter/main.cpp:7
 

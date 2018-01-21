@@ -21,8 +21,8 @@ SOURCES += \
         ../dbtocsv.cpp \
         ../csvtodb.cpp \
         testmain.cpp \
-    testcsvtodb.cpp \
-    testdbtocsv.cpp
+        testcsvtodb.cpp \
+        testdbtocsv.cpp
 
 HEADERS += ../converter.h \
         testmain.h
