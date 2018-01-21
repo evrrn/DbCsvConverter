@@ -60,7 +60,13 @@ bool ConverterModel::readFromCsvToModel()
             {
                 item += line[i];
             }
-
+            if ((count-1 == i)&(Quote == true))
+            {
+                item += QChar(13);
+                line = out.readLine().simplified();
+                i = -1;
+                count = line.count();
+            }
             if ((count-1 == i)&(Quote != true))
             {
                 item = trimCSV(item);
