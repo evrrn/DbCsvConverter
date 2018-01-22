@@ -60,6 +60,10 @@ bool ConverterModel::readFromCsvToModel()
             {
                 item += line[i];
             }
+            if ((count-1 == i)&&(line[i] == _separator)){
+                item = "";
+                temp << (item);
+            }
             if ((count-1 == i)&(Quote == true))
             {
                 item += QChar(13);
@@ -85,6 +89,7 @@ bool ConverterModel::readFromCsvToModel()
                 temp.clear();
                 item = "";
             }
+
         }
         step++;
     }
