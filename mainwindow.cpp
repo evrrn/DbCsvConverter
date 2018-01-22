@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(validInput(bool)), this, SLOT(inputOutputValidator()));
     connect(this, SIGNAL(notNullOutput(bool)), this, SLOT(inputOutputValidator()));
 
+    connect(this, SIGNAL(validData(bool)), this, SLOT(enableTransformButton(bool)));
+
     connect(this, SIGNAL(newDb(QString)), this, SLOT(checkDb()));
     connect(this, SIGNAL(newTable(QString)), this, SLOT(checkDb()));
     connect(this, SIGNAL(newCsv(QString)), this, SLOT(checkCsv()));
@@ -30,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->csvToDbFlag = true;
     this->modelIsEmpty = true;
+
+    ui->transformButton->setEnabled(false);
 
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
@@ -145,13 +149,14 @@ void MainWindow::editToTableNameEditingFinished()
     emit newTable(tableName);
 }
 
-void MainWindow::currentTableNameChanged(){
+void MainWindow::currentTableNameChanged()
+{
     tableName = ui->chooseFromTableName->currentText();
     emit newTable(tableName);
 }
 
-
-void MainWindow::clearInput(){
+void MainWindow::clearInput()
+{
     setVisibleFromTableName(false);
     setVisibleToTableName(false);
 
